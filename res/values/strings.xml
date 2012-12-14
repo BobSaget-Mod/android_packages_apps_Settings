@@ -4822,8 +4822,6 @@
     <string name="sm_sound_mode_soundVibrate">Sound + Vibrate</string>
     <string name="pref_flash_mode_title">Flash mode</string>
     <string name="expanded_haptic_feedback_title">Haptic feedback</string>
-    <string name="power_widget_note_title">Note</string>
-    <string name="power_widget_note_summary">Enabling the Power widget will disable the ability to open the Quick Settings panel with a single swipe</string>
 
     <!-- Quick settings panel  -->
     <string name="quick_settings_panel_title">Quick Settings panel</string>
@@ -4861,6 +4859,9 @@
     <string name="title_dynamic_bugreport">Bug report</string>
     <string name="title_dynamic_ime">IME changer</string>
     <string name="title_dynamic_wifi">Wi-Fi display</string>
+    <string name="title_general">General</string>
+    <string name="title_quick_pulldown">Quick pulldown</string>
+    <string name="summary_quick_pulldown">Show Quick Settings when pulling down notification bar near the right side of the screen</string>
 
     <!-- Reset tiles -->
     <string name="tiles_add_title">Add</string>
