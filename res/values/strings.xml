@@ -4837,7 +4837,7 @@
     <string name="title_tile_brightness">Brightness</string>
     <string name="title_tile_sleep">Go to sleep</string>
     <string name="title_tile_gps">GPS</string>
-    <string name="title_tile_flashlight">LED flashlight</string>
+    <string name="title_tile_torch">Torch</string>
     <string name="title_tile_lockscreen">Lock screen</string>
     <string name="title_tile_media_play_pause">Media: Play/Pause</string>
     <string name="title_tile_media_next">Media: Skip to Next</string>
