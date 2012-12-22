@@ -19,6 +19,7 @@ package com.android.settings.saber;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -121,6 +122,12 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         if (BluetoothAdapter.getDefaultAdapter() == null) {
             QuickSettingsUtil.TILES.remove(QuickSettingsUtil.TILE_BLUETOOTH);
         }
+
+        // Dont show the NFC tile if not supported
+        if (NfcAdapter.getDefaultAdapter(getActivity()) == null) {
+            QuickSettingsUtil.TILES.remove(QuickSettingsUtil.TILE_NFC);
+        }
+
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {

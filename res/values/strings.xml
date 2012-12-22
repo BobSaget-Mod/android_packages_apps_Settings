@@ -4851,6 +4851,7 @@
     <string name="title_tile_wifiap">Wi-Fi AP</string>
     <string name="title_tile_wifi">Wi-Fi</string>
     <string name="title_tile_user">User switcher</string>
+    <string name="title_tile_nfc">NFC</string>
 
     <string name="title_dynamic_tiles">Dynamic tiles</string>
     <string name="dynamic_tiles_note_title">Note</string>

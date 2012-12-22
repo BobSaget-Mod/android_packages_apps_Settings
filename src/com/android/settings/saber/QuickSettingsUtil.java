@@ -56,6 +56,7 @@ public class QuickSettingsUtil {
     public static final String TILE_MEDIA_PLAY_PAUSE = "toggleMediaPlayPause";
     public static final String TILE_MEDIA_PREVIOUS = "toggleMediaPrevious";
     public static final String TILE_MEDIA_NEXT = "toggleMediaNext";
+    public static final String TILE_NFC = "toggleNfc";
 
     private static final String TILE_DELIMITER = "|";
     private static final String TILES_DEFAULT = TILE_USER
@@ -98,6 +99,9 @@ public class QuickSettingsUtil {
         TILES.put(TILE_MOBILEDATA, new QuickSettingsUtil.TileInfo(
                 TILE_MOBILEDATA, R.string.title_tile_mobiledata,
                 "com.android.systemui:drawable/ic_qs_signal_4"));
+        TILES.put(TILE_NFC, new QuickSettingsUtil.TileInfo(
+                TILE_NFC, R.string.title_tile_nfc,
+                "com.android.systemui:drawable/ic_qs_nfc_off"));
         TILES.put(TILE_SETTINGS, new QuickSettingsUtil.TileInfo(
                 TILE_SETTINGS, R.string.title_tile_settings,
                 "com.android.systemui:drawable/ic_qs_settings"));
