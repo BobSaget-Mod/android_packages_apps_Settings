@@ -26,7 +26,6 @@ import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -47,6 +46,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
 
     private static final String SEPARATOR = "OV=I=XseparatorX=I=VO";
     private static final String EXP_RING_MODE = "pref_ring_mode";
+    private static final String EXP_SCREENTIMEOUT_MODE = "pref_screentimeout_mode";
     private static final String DYNAMIC_ALARM = "dynamic_alarm";
     private static final String DYNAMIC_BUGREPORT = "dynamic_bugreport";
     private static final String DYNAMIC_IME = "dynamic_ime";
@@ -55,6 +55,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
     private static final String COLLAPSE_PANEL = "collapse_panel";
 
     MultiSelectListPreference mRingMode;
+    ListPreference mScreenTimeoutMode;
     CheckBoxPreference mDynamicAlarm;
     CheckBoxPreference mDynamicBugReport;
     CheckBoxPreference mDynamicWifi;
@@ -100,6 +101,11 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
             updateSummary(storedRingMode, mRingMode, R.string.pref_ring_mode_summary);
         }
         mRingMode.setOnPreferenceChangeListener(this);
+
+        // Screen timeout mode
+        mScreenTimeoutMode = (ListPreference) prefSet.findPreference(EXP_SCREENTIMEOUT_MODE);
+        mScreenTimeoutMode.setSummary(mScreenTimeoutMode.getEntry());
+        mScreenTimeoutMode.setOnPreferenceChangeListener(this);
 
         // Add the dynamic tiles checkboxes
         mDynamicAlarm = (CheckBoxPreference) prefSet.findPreference(DYNAMIC_ALARM);
@@ -184,6 +190,13 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(resolver, Settings.System.QS_QUICK_PULLDOWN,
                     statusQuickPulldown);
             updatePulldownSummary();
+            return true;
+        } else if (preference == mScreenTimeoutMode) {
+            int value = Integer.valueOf((String) newValue);
+            int index = mScreenTimeoutMode.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.EXPANDED_SCREENTIMEOUT_MODE, value);
+            mScreenTimeoutMode.setSummary(mScreenTimeoutMode.getEntries()[index]);
             return true;
         }
         return false;
