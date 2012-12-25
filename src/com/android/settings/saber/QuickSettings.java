@@ -28,6 +28,7 @@ import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
+import android.preference.PreferenceCategory;
 import android.provider.Settings;
 import android.text.TextUtils;
 
@@ -54,6 +55,8 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
     private static final String DYNAMIC_WIFI = "dynamic_wifi";
     private static final String QUICK_PULLDOWN = "quick_pulldown";
     private static final String COLLAPSE_PANEL = "collapse_panel";
+    private static final String GENERAL_SETTINGS = "pref_general_settings";
+    private static final String STATIC_TILES = "static_tiles";
 
     MultiSelectListPreference mRingMode;
     ListPreference mScreenTimeoutMode;
@@ -63,6 +66,8 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
     CheckBoxPreference mDynamicIme;
     CheckBoxPreference mCollapsePanel;
     ListPreference mQuickPulldown;
+    PreferenceCategory mGeneralSettings;
+    PreferenceCategory mStaticTiles;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,10 +82,11 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         PreferenceScreen prefSet = getPreferenceScreen();
         PackageManager pm = getPackageManager();
         ContentResolver resolver = getActivity().getContentResolver();
-
+        mGeneralSettings = (PreferenceCategory) prefSet.findPreference(GENERAL_SETTINGS);
+        mStaticTiles = (PreferenceCategory) prefSet.findPreference(STATIC_TILES);
         mQuickPulldown = (ListPreference) prefSet.findPreference(QUICK_PULLDOWN);
         if (!Utils.isPhone(getActivity())) {
-            prefSet.removePreference(mQuickPulldown);
+            mGeneralSettings.removePreference(mQuickPulldown);
         } else {
             mQuickPulldown.setOnPreferenceChangeListener(this);
             int quickPulldownValue = Settings.System.getInt(resolver, Settings.System.QS_QUICK_PULLDOWN, 0);
