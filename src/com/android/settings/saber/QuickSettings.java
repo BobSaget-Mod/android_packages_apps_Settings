@@ -134,6 +134,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         // Don't show the bluetooth options if not supported
         if (BluetoothAdapter.getDefaultAdapter() == null) {
             QuickSettingsUtil.TILES.remove(QuickSettingsUtil.TILE_BLUETOOTH);
+            QuickSettingsUtil.TILES_DEFAULT.remove(QuickSettingsUtil.TILE_BLUETOOTH);
         }
 
         // Dont show the NFC tile if not supported
