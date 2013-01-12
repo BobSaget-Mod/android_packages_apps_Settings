@@ -21,6 +21,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.hardware.display.DisplayManager;
+import android.hardware.display.WifiDisplayStatus;
 import android.net.ConnectivityManager;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
@@ -60,6 +62,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
     private static final String COLLAPSE_PANEL = "collapse_panel";
     private static final String GENERAL_SETTINGS = "pref_general_settings";
     private static final String STATIC_TILES = "static_tiles";
+    private static final String DYNAMIC_TILES = "pref_dynamic_tiles";
 
     MultiSelectListPreference mRingMode;
     ListPreference mScreenTimeoutMode;
@@ -72,6 +75,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
     ListPreference mQuickPulldown;
     PreferenceCategory mGeneralSettings;
     PreferenceCategory mStaticTiles;
+    PreferenceCategory mDynamicTiles;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         ContentResolver resolver = getActivity().getContentResolver();
         mGeneralSettings = (PreferenceCategory) prefSet.findPreference(GENERAL_SETTINGS);
         mStaticTiles = (PreferenceCategory) prefSet.findPreference(STATIC_TILES);
+        mDynamicTiles = (PreferenceCategory) prefSet.findPreference(DYNAMIC_TILES);
         mQuickPulldown = (ListPreference) prefSet.findPreference(QUICK_PULLDOWN);
         if (!Utils.isPhone(getActivity())) {
             if(mQuickPulldown != null)
@@ -129,6 +134,14 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         mDynamicUsbTether.setChecked(Settings.System.getInt(resolver, Settings.System.QS_DYNAMIC_USBTETHER, 1) == 1);
         mDynamicWifi = (CheckBoxPreference) prefSet.findPreference(DYNAMIC_WIFI);
         mDynamicWifi.setChecked(Settings.System.getInt(resolver, Settings.System.QS_DYNAMIC_WIFI, 1) == 1);
+
+        if (!deviceSupportsUsbTether()) {
+            mDynamicTiles.removePreference(mDynamicUsbTether);
+        }
+
+        if (!deviceSupportsWifiDisplay()) {
+            mDynamicTiles.removePreference(mDynamicWifi);
+        }
 
         // Don't show mobile data options if not supported
         boolean isMobileData = pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
@@ -268,5 +281,10 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
     private boolean deviceSupportsUsbTether() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return (cm.getTetherableUsbRegexs().length != 0);
+    }
+
+    private boolean deviceSupportsWifiDisplay() {
+        DisplayManager dm = (DisplayManager)getActivity().getSystemService(Context.DISPLAY_SERVICE);
+        return (dm.getWifiDisplayStatus().getFeatureState() != WifiDisplayStatus.FEATURE_STATE_UNAVAILABLE);
     }
 }
