@@ -1510,7 +1510,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.app.action.START_ENCRYPTION" />
-                <category android:name="android.intent.category.DEFAULT" /> />
+                <category android:name="android.intent.category.DEFAULT" /> 
             </intent-filter>
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.CryptKeeperSettings" />
@@ -1558,6 +1558,19 @@
         <activity android:name=".saber.PowerMenu" />
         <activity android:name=".saber.PowerWidget" />
         <activity android:name=".saber.QuickSettings" />
+        <activity android:name="Settings$QuietHoursSettingsActivity"
+                android:label="@string/quiet_hours_title"
+                android:taskAffinity=""
+                android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.cyanogenmod.QuietHours" />
+            <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
+                android:resource="@id/sound_settings" />
+        </activity>
 
         <!-- SABER MODS END -->
 
