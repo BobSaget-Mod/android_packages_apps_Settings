@@ -4439,6 +4439,10 @@
     <string name="navigation_bar_height_28">28dp</string>
     <string name="navigation_bar_height_24">24dp</string>
 
+    <!-- Navigation Bar Color -->
+    <string name="navigation_button_color_title">Button color overlay</string>
+    <string name="dialog_indicator_color_title">Select color</string>
+
     <!-- Sound settings screen, setting check box label -->
     <string name="volume_adjust_sounds_enable_title">Volume adjust sound</string>
     <!-- Sound settings screen, setting check box summary -->
