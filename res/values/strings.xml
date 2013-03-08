@@ -4427,22 +4427,6 @@
     <string name="volume_overlay_title">Volume panel style</string>
     <string name="volume_ring_only_description">Ringtone</string>
 
-    <!-- Navigation Bar  -->
-    <string name="navigation_bar_edit_title">Button customization</string>
-    <string name="navigation_bar_edit_summary">Edit button layout</string>
-    <string name="navigation_bar_height">Button height</string>
-    <string name="navigation_bar_height_48">48dp (default)</string>
-    <string name="navigation_bar_height_44">44dp</string>
-    <string name="navigation_bar_height_40">40dp</string>
-    <string name="navigation_bar_height_36">36dp</string>
-    <string name="navigation_bar_height_32">32dp</string>
-    <string name="navigation_bar_height_28">28dp</string>
-    <string name="navigation_bar_height_24">24dp</string>
-
-    <!-- Navigation Bar Color -->
-    <string name="navigation_button_color_title">Button color overlay</string>
-    <string name="dialog_indicator_color_title">Select color</string>
-
     <!-- Sound settings screen, setting check box label -->
     <string name="volume_adjust_sounds_enable_title">Volume adjust sound</string>
     <!-- Sound settings screen, setting check box summary -->
@@ -4653,6 +4637,26 @@
     <string name="navring_action_torch">Toggle torch</string>
     <string name="navring_action_google_now">Google Now</string>
     <string name="navring_choose_action_title">Choose action</string>
+
+    <!-- Navigation Bar  -->
+    <string name="navigation_bar_edit_title">Button customization</string>
+    <string name="navigation_bar_edit_summary">Edit button layout</string>
+    <string name="navigation_bar_height">Button height</string>
+    <string name="navigation_bar_height_48">48dp (default)</string>
+    <string name="navigation_bar_height_44">44dp</string>
+    <string name="navigation_bar_height_40">40dp</string>
+    <string name="navigation_bar_height_36">36dp</string>
+    <string name="navigation_bar_height_32">32dp</string>
+    <string name="navigation_bar_height_28">28dp</string>
+    <string name="navigation_bar_height_24">24dp</string>
+
+    <!-- Navigation Bar Color -->
+    <string name="navigation_button_color_title">Button color overlay</string>
+    <string name="dialog_indicator_color_title">Select color</string>
+
+    <!-- Navigation button glow time and color -->
+    <string name="navigation_button_glow_color_title">Button glow color</string>
+    <string name="navigation_button_glow_time_title">Button glow time</string>
 
     <!-- Setting checkbox summary for displaying USB debugging notification -->
     <string name="adb_notify">USB debugging notify</string>
