@@ -4707,7 +4707,7 @@
     <!-- Battery bar -->
     <string name="battery_bar">Battery bar location</string>
     <string name="battery_bar_color">Battery bar color</string>
-    <string name="battery_bar_cat">Battery bar options</string>
+    <string name="battery_bar_category">Battery bar options</string>
     <string name="battery_bar_style_title">Battery bar style</string>
     <string name="battery_bar_thickness_title">Battery bar thickness</string>
     <string name="battery_bar_animate_title">Charging animation</string>
@@ -4962,6 +4962,15 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="privacy_guard_manager_filter_permissions">Permission filter</string>
 
     <string name="privacy_guard_dlg_system_app_text">When enabling Privacy Guard for a built-in app, the app will not be able to access or provide personal data. This may cause other apps to misbehave.</string>
+
+    <!-- Notifications Category -->
+    <string name="status_bar_notifications_title">Notifications</string>
+
+    <!-- Breathing Notifications -->
+    <string name="missed_call_breath">Breathing Missed Call</string>
+    <string name="missed_call_breath_summary">Will give your missed call notifications a breathing effect on the statusbar.</string>
+    <string name="mms_breath">Breathing SMS</string>
+    <string name="mms_breath_summary">Will give your Mms notifications a breathing effect on the statusbar.</string>
 
     <!-- SABER MODS END -->
 </resources>

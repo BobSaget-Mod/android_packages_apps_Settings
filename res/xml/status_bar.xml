@@ -38,6 +38,24 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="status_bar_notifications"
+        android:title="@string/status_bar_notifications_title">
+
+        <CheckBoxPreference
+            android:key="missed_call_breath"
+            android:title="@string/missed_call_breath"
+            android:summary="@string/missed_call_breath_summary"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="mms_breath"
+            android:title="@string/mms_breath"
+            android:summary="@string/mms_breath_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="status_bar_general"
         android:title="@string/status_bar_general_title">
 
@@ -49,8 +67,8 @@
             android:entryValues="@array/values_status_bar_battery" />
 
         <PreferenceScreen
-            android:key="battery_bar_cat"
-            android:title="@string/battery_bar_cat">
+            android:key="battery_bar_category"
+            android:title="@string/battery_bar_category">
 
             <ListPreference
                 android:key="battery_bar_list"
