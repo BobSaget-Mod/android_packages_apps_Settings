@@ -16,16 +16,16 @@
 
 package com.android.settings.saber;
 
-import static com.android.internal.util.cm.QSConstants.TILE_BLUETOOTH;
-import static com.android.internal.util.cm.QSConstants.TILE_MOBILEDATA;
-import static com.android.internal.util.cm.QSConstants.TILE_NFC;
-import static com.android.internal.util.cm.QSConstants.TILE_WIFIAP;
-import static com.android.internal.util.cm.QSConstants.TILE_TORCH;
-import static com.android.internal.util.cm.QSUtils.deviceSupportsBluetooth;
-import static com.android.internal.util.cm.QSUtils.deviceSupportsImeSwitcher;
-import static com.android.internal.util.cm.QSUtils.deviceSupportsNfc;
-import static com.android.internal.util.cm.QSUtils.deviceSupportsUsbTether;
-import static com.android.internal.util.cm.QSUtils.deviceSupportsWifiDisplay;
+import static com.android.internal.util.sm.QSConstants.TILE_BLUETOOTH;
+import static com.android.internal.util.sm.QSConstants.TILE_MOBILEDATA;
+import static com.android.internal.util.sm.QSConstants.TILE_NFC;
+import static com.android.internal.util.sm.QSConstants.TILE_WIFIAP;
+import static com.android.internal.util.sm.QSConstants.TILE_TORCH;
+import static com.android.internal.util.sm.QSUtils.deviceSupportsBluetooth;
+import static com.android.internal.util.sm.QSUtils.deviceSupportsImeSwitcher;
+import static com.android.internal.util.sm.QSUtils.deviceSupportsNfc;
+import static com.android.internal.util.sm.QSUtils.deviceSupportsUsbTether;
+import static com.android.internal.util.sm.QSUtils.deviceSupportsWifiDisplay;
 
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
