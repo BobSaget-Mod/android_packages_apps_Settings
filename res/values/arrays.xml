@@ -1042,5 +1042,20 @@
         <item>4</item>
     </string-array>
 
+    <!-- Pie controls -->
+    <string-array name="pie_control_sensitivity_entries" translatable="false">
+        <item>@string/pie_control_sensitivity_low</item>
+        <item>@string/pie_control_sensitivity_medium</item>
+        <item>@string/pie_control_sensitivity_high</item>
+        <item>@string/pie_control_sensitivity_very_high</item>
+    </string-array>
+
+    <string-array name="pie_control_sensitivity_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
     <!-- SABER MODS END -->
 </resources>
