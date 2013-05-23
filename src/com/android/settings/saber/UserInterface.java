@@ -30,17 +30,18 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
 public class UserInterface extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
-    
+
     private static final String USER_INTERFACE_CATEGORY_GENERAL = "user_interface_category_general";
     private static final String USER_INTERFACE_CATEGORY_DISPLAY = "user_interface_category_display";
-
     private static final String DUAL_PANE_PREFS = "dual_pane_prefs";
     private static final String KEY_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
+    private static final String KEY_CHARGING_LED_ENABLED = "charging_led_enabled";
 
     private PreferenceCategory mUserInterfaceGeneral;
     private PreferenceCategory mUserInterfaceDisplay;
     private ListPreference mDualPanePrefs;
     private CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
+    private CheckBoxPreference mChargingLedEnabled;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,12 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
         mWakeUpWhenPluggedOrUnplugged = (CheckBoxPreference) findPreference(KEY_WAKEUP_WHEN_PLUGGED_UNPLUGGED);
         mWakeUpWhenPluggedOrUnplugged.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED, 1) == 1);
-        }
+
+        // Charging LED
+        mChargingLedEnabled = (CheckBoxPreference) findPreference(KEY_CHARGING_LED_ENABLED);
+        mChargingLedEnabled.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.CHARGING_LED_ENABLED, 0) != 0);
+    }
 
     private void updateDualPanePrefs(int value) {
         Resources res = getResources();
@@ -95,6 +101,10 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED,
                     mWakeUpWhenPluggedOrUnplugged.isChecked() ? 1 : 0);
+        } else if (preference == mChargingLedEnabled) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.CHARGING_LED_ENABLED,
+                    mChargingLedEnabled.isChecked() ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

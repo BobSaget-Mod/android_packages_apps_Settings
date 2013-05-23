@@ -4413,7 +4413,7 @@
     <string name="ok">OK</string>
     <string name="profile_applist_title">Applications</string>
     <string name="profile_reset_title">Reset</string>
-        
+
     <!-- System Interface settings  -->
     <string name="system_settings_title">System Mods</string>
     <string name="system_interface_title">System Mods</string>
@@ -4627,7 +4627,7 @@
     <string name="navigation_bar_reset_toast">Navigation bar reset to default</string>
     <string name="navigation_bar_menu_editable">Editable</string>
     <string name="navigation_bar_menu_locked">Locked</string>
-    
+
     <!-- Navigation ring shortcuts -->
     <string name="navigation_ring_title">Quick launch shortcuts</string>
     <string name="navring_target_reset_message">Delete all user created navigation bar shortcuts and restore to default?</string>
@@ -4710,7 +4710,6 @@
          [CHAR LIMIT=40] -->
     <string name="power_notifications_category_title">Power sounds</string>
 
-
     <!-- Sound settings, power notifications enable/disable, setting check box label -->
     <string name="power_notifications_enable_title">Enable</string>
     <!-- Sound settings, power notifications vibrate enable/disable, setting check box label -->
@@ -4724,6 +4723,8 @@
     <string name="user_interface_category_display">Display</string>
     <string name="wakeup_when_plugged_unplugged_title">Wake up when plugged/unplugged</string>
 
-   <!-- SABER MODS END -->
+    <!-- Battery chargin led -->
+    <string name="charging_led_enabled_title">Enable Charging LED</string>
 
+   <!-- SABER MODS END -->
 </resources>
