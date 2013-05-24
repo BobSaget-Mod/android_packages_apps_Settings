@@ -28,6 +28,9 @@
     <!-- User interface -->
     <bool name="config_show_user_interface_dual_pane">false</bool>
 
+    <!-- Show LED charging option -->
+    <bool name="config_show_chargingLed">false</bool>
+
     <!-- TODO: This is purely enforced by the interface, and does not affect what
          strings may be inserted into the actual content provider.
          With the addition of shortcuts, it seems more likely that users will

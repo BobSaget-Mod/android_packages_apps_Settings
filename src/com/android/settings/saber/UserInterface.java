@@ -78,8 +78,15 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
 
         // Charging LED
         mChargingLedEnabled = (CheckBoxPreference) findPreference(KEY_CHARGING_LED_ENABLED);
-        mChargingLedEnabled.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.CHARGING_LED_ENABLED, 0) != 0);
+        if (mChargingLedEnabled != null) {
+            if (!getResources().getBoolean(R.bool.config_show_chargingLed)) {
+                getPreferenceScreen().removePreference(mChargingLedEnabled);
+                mChargingLedEnabled = null;
+            } else {
+            mChargingLedEnabled.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.CHARGING_LED_ENABLED, 0) != 0);
+            }
+        }
     }
 
     private void updateDualPanePrefs(int value) {
