@@ -48,4 +48,9 @@
         android:title="@string/charging_led_enabled_title"
         android:defaultValue="false" />
 
+    <CheckBoxPreference
+        android:key="low_battery_led_pulse_enabled"
+        android:title="@string/low_battery_led_pulse_enabled_title"
+        android:defaultValue="true" />
+
 </PreferenceScreen>

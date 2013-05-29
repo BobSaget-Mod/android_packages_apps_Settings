@@ -36,12 +36,14 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private static final String DUAL_PANE_PREFS = "dual_pane_prefs";
     private static final String KEY_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final String KEY_CHARGING_LED_ENABLED = "charging_led_enabled";
+    private static final String KEY_LOW_BATTERY_LED_PULSE_ENABLED = "low_battery_led_pulse_enabled";
 
     private PreferenceCategory mUserInterfaceGeneral;
     private PreferenceCategory mUserInterfaceDisplay;
     private ListPreference mDualPanePrefs;
     private CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     private CheckBoxPreference mChargingLedEnabled;
+    private CheckBoxPreference mLowBatteryLedPulseEnabled;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,15 +78,26 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
         mWakeUpWhenPluggedOrUnplugged.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED, 1) == 1);
 
-        // Charging LED
+        // LED
         mChargingLedEnabled = (CheckBoxPreference) findPreference(KEY_CHARGING_LED_ENABLED);
         if (mChargingLedEnabled != null) {
-            if (!getResources().getBoolean(R.bool.config_show_chargingLed)) {
+            if (!getResources().getBoolean(R.bool.config_show_Led)) {
                 getPreferenceScreen().removePreference(mChargingLedEnabled);
                 mChargingLedEnabled = null;
             } else {
             mChargingLedEnabled.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.CHARGING_LED_ENABLED, 0) != 0);
+            }
+        }
+
+        mLowBatteryLedPulseEnabled = (CheckBoxPreference) findPreference(KEY_LOW_BATTERY_LED_PULSE_ENABLED);
+        if (mLowBatteryLedPulseEnabled != null) {
+            if (!getResources().getBoolean(R.bool.config_show_Led)) {
+                getPreferenceScreen().removePreference(mLowBatteryLedPulseEnabled);
+                mLowBatteryLedPulseEnabled = null;
+            } else {
+            mLowBatteryLedPulseEnabled.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOW_BATTERY_LED_PULSE_ENABLED, 1) == 1);
             }
         }
     }
@@ -112,6 +125,10 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(getContentResolver(),
                     Settings.System.CHARGING_LED_ENABLED,
                     mChargingLedEnabled.isChecked() ? 1 : 0);
+        } else if (preference == mLowBatteryLedPulseEnabled) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOW_BATTERY_LED_PULSE_ENABLED,
+                    mLowBatteryLedPulseEnabled.isChecked() ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
