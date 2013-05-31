@@ -35,6 +35,7 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private static final String USER_INTERFACE_CATEGORY_DISPLAY = "user_interface_category_display";
     private static final String DUAL_PANE_PREFS = "dual_pane_prefs";
     private static final String KEY_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
+    private static final String LED_CATEGORY_GENERAL = "led_category_general";
     private static final String KEY_CHARGING_LED_ENABLED = "charging_led_enabled";
     private static final String KEY_LOW_BATTERY_LED_PULSE_ENABLED = "low_battery_led_pulse_enabled";
 
@@ -79,6 +80,10 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
                 Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED, 1) == 1);
 
         // LED
+        if (!getResources().getBoolean(R.bool.config_show_Led)) {
+            getPreferenceScreen().removePreference((PreferenceCategory) findPreference(LED_CATEGORY_GENERAL));
+        }
+
         mChargingLedEnabled = (CheckBoxPreference) findPreference(KEY_CHARGING_LED_ENABLED);
         if (mChargingLedEnabled != null) {
             if (!getResources().getBoolean(R.bool.config_show_Led)) {

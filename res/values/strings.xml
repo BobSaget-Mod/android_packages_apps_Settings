@@ -4728,6 +4728,9 @@
     <string name="user_interface_category_display">Display</string>
     <string name="wakeup_when_plugged_unplugged_title">Wake up when plugged/unplugged</string>
 
+    <!-- LED Category -->
+    <string name="led_category_title_general">LED general</string>
+
     <!-- Battery led behaviour -->
     <string name="charging_led_enabled_title">Enable Charging LED</string>
     <string name="low_battery_led_pulse_enabled_title">Enable Low Battery LED Pulse</string>
