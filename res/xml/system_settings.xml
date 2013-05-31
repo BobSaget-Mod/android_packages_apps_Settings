@@ -57,7 +57,6 @@
             android:key="notification_pulse"
             android:title="@string/notification_pulse_title"
             android:fragment="com.android.settings.notificationlight.NotificationLightSettings" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -78,7 +77,6 @@
                     android:targetPackage="com.cyanogenmod.lockclock"
                     android:targetClass="com.cyanogenmod.lockclock.preference.Preferences" />
         </PreferenceScreen>
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -95,11 +93,20 @@
             android:fragment="com.android.settings.saber.PieControl"
             android:title="@string/pie_control_title" />
 
-    </PreferenceCategory>
-
         <PreferenceScreen
             android:key="navigation_ring"
             android:fragment="com.android.settings.saber.NavRing"
             android:title="@string/navigation_ring_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="security_category"
+        android:title="@string/security_title_general">
+
+        <CheckBoxPreference
+            android:key="quick_unlock"
+            android:title="@string/allow_quick_unlock_title"
+            android:summary="@string/allow_quick_unlock_summary" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

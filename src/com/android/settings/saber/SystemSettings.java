@@ -16,11 +16,16 @@
 
 package com.android.settings.saber;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.UserHandle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -53,12 +58,16 @@ public class SystemSettings extends SettingsPreferenceFragment {
     private static final String KEY_POWER_MENU = "power_menu";
     private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
     private static final String KEY_NOTIFICATION_DRAWER_TABLET = "notification_drawer_tablet";
+    private static final String KEY_SECURITY_CATEGORY = "security_category";
+    private static final String KEY_QUICK_UNLOCK = "quick_unlock";
 
     private PreferenceScreen mUserInterface;
     private PreferenceScreen mNotificationPulse;
     private PreferenceScreen mPieControl;
     private PreferenceScreen mPhoneDrawer;
     private PreferenceScreen mTabletDrawer;
+    private CheckBoxPreference mQuickUnlock;
+    private Context mContext;
 
     private final Configuration mCurConfig = new Configuration();
     private boolean mPrimaryUser;
@@ -69,6 +78,7 @@ public class SystemSettings extends SettingsPreferenceFragment {
 
         addPreferencesFromResource(R.xml.system_settings);
         PreferenceScreen prefScreen = getPreferenceScreen();
+        mContext = getActivity();
 
         mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
@@ -116,6 +126,22 @@ public class SystemSettings extends SettingsPreferenceFragment {
         
         // Pie controls
         mPieControl = (PreferenceScreen) findPreference(KEY_PIE_CONTROL);
+
+        mQuickUnlock = (CheckBoxPreference) findPreference(KEY_QUICK_UNLOCK);
+        mQuickUnlock.setChecked(Settings.System.getInt(mContext.getApplicationContext().getContentResolver(),
+                Settings.System.LOCKSCREEN_QUICK_UNLOCK, 0) != 0);
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mQuickUnlock) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_QUICK_UNLOCK,
+                    mQuickUnlock.isChecked() ? 1 : 0);
+            return true;
+        }
+
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     private void updateLightPulseDescription() {

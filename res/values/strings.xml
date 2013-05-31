@@ -4775,7 +4775,7 @@
     <string name="halo_pause_title">Pause active app</string>
     <string name="halo_pause_summary">When opening an app with HALO the underlying app will get paused</string>
     <string name="halo_colors_title">Custom colors</string>
-    <string name="halo_colors_summary">Enable custom colors for HALO. \n\nUpon disabling requires reboot</string>
+    <string name="halo_colors_summary">Enable custom colors for HALO \n\nUpon disabling requires reboot</string>
     <string name="halo_circle_color_title">Circle color</string>
     <string name="halo_bubble_color_title">Speech bubble color</string>
     <string name="halo_bubble_text_color_title">Speech bubble text color</string> 
@@ -4970,7 +4970,14 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="missed_call_breath">Breathing Missed Call</string>
     <string name="missed_call_breath_summary">Will give your missed call notifications a breathing effect on the statusbar.</string>
     <string name="mms_breath">Breathing SMS</string>
-    <string name="mms_breath_summary">Will give your Mms notifications a breathing effect on the statusbar.</string>
+    <string name="mms_breath_summary">Will give your Mms notifications a breathing effect.</string>
+
+    <!-- Saber Security Category -->
+    <string name="security_title_general">Security</string>
+
+    <!-- Quick Unlock -->
+    <string name="allow_quick_unlock_title">Quick unlock</string>
+    <string name="allow_quick_unlock_summary">Unlock automatically when the correct password is entered</string>
 
     <!-- SABER MODS END -->
 </resources>
