@@ -4666,6 +4666,9 @@
 
     <!-- Volume rocker behaviours -->
     <string name="volume_rocker_category_title">Volume rocker behaviors</string>
+    <!-- Volume rocker wake -->
+    <string name="pref_volume_wake_title">Volume rocker wake</string>
+    <string name="pref_volume_wake_summary">Pressing the volume rocker will wake your Nexus</string>
     <!-- Volume rocker music control -->
     <string name="volbtn_music_controls_title">Volume rocker music controls</string>
     <string name="volbtn_music_controls_summary">When screen off, long-pressing the volume rockers will seek music tracks</string>

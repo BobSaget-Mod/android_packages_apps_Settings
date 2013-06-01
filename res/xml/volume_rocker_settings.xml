@@ -15,6 +15,12 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/volume_rocker_category_title" >
+
+    <CheckBoxPreference
+        android:key="pref_volume_wake"
+        android:title="@string/pref_volume_wake_title"
+        android:summary="@string/pref_volume_wake_summary"
+        android:defaultValue="false" />
     
     <CheckBoxPreference
         android:key="volbtn_music_controls"
