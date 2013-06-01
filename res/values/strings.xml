@@ -4738,5 +4738,9 @@
     <string name="charging_led_enabled_title">Enable Charging LED</string>
     <string name="low_battery_led_pulse_enabled_title">Enable Low Battery LED Pulse</string>
 
+    <!-- Display Screen-on and off Electron beam animations -->
+    <string name="screen_off_animation_title">Screen-off animation</string>
+    <string name="screen_off_animation_summary">Show the electron beam animation when the screen is turned off</string>
+
    <!-- SABER MODS END -->
 </resources>
