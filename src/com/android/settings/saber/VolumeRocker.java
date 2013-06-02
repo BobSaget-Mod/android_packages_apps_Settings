@@ -45,12 +45,19 @@ public class VolumeRocker extends SettingsPreferenceFragment implements OnPrefer
         addPreferencesFromResource(R.xml.volume_rocker_settings);
 
         mVolumeWake = (CheckBoxPreference) findPreference(KEY_VOLUME_WAKE);
-        mVolumeWake.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+        if (mVolumeWake != null) {
+            if (!getResources().getBoolean(R.bool.config_show_volume_rocker_wake)) {
+                getPreferenceScreen().removePreference(mVolumeWake);
+                mVolumeWake = null;
+            } else {
+            mVolumeWake.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                     Settings.System.VOLUME_WAKE_SCREEN, 0) == 1);
+            }
+        }
 
         mVolBtnMusicCtrl = (CheckBoxPreference) findPreference(KEY_VOLBTN_MUSIC_CTRL);
         mVolBtnMusicCtrl.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-                   Settings.System.VOLBTN_MUSIC_CONTROLS, 0) == 1);
+                    Settings.System.VOLBTN_MUSIC_CONTROLS, 0) == 1);
 
         mVolumeKeyCursorControl = (ListPreference) findPreference(VOLUME_KEY_CURSOR_CONTROL);
         if(mVolumeKeyCursorControl != null) {

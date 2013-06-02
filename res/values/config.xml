@@ -24,6 +24,8 @@
 
     <!-- LED Flashlight -->
     <bool name="has_led_flash">false</bool>
+
+    <!-- SABER MODS START -->
     
     <!-- User interface -->
     <bool name="config_show_user_interface_dual_pane">false</bool>
@@ -31,14 +33,15 @@
     <!-- LED -->
     <bool name="config_show_Led">false</bool>
 
+    <!-- Volume Rocker Wake -->
+    <bool name="config_show_volume_rocker_wake">true</bool>
+
     <!-- TODO: This is purely enforced by the interface, and does not affect what
          strings may be inserted into the actual content provider.
          With the addition of shortcuts, it seems more likely that users will
          find this limiting; it would be good to have the interface work with
          very long strings too. -->
     <integer name="maximum_user_dictionary_word_length" translatable="false">48</integer>
-
-    <!-- SABER MODS START -->
 
     <!-- Show Expanded Desktop preference -->
     <bool name="config_show_expandedDesktop">true</bool>
