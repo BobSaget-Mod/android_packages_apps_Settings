@@ -16,8 +16,12 @@
 
 package com.android.settings.saber;
 
+import android.app.INotificationManager;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.ServiceManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -38,6 +42,10 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private static final String LED_CATEGORY_GENERAL = "led_category_general";
     private static final String KEY_CHARGING_LED_ENABLED = "charging_led_enabled";
     private static final String KEY_LOW_BATTERY_LED_PULSE_ENABLED = "low_battery_led_pulse_enabled";
+    private static final String KEY_HALO_CATEGORY = "halo_category";
+    private static final String KEY_HALO_STATE = "halo_state";
+    private static final String KEY_HALO_HIDE = "halo_hide";
+    private static final String KEY_HALO_REVERSED = "halo_reversed";
 
     private PreferenceCategory mUserInterfaceGeneral;
     private PreferenceCategory mUserInterfaceDisplay;
@@ -45,6 +53,10 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     private CheckBoxPreference mChargingLedEnabled;
     private CheckBoxPreference mLowBatteryLedPulseEnabled;
+    private ListPreference mHaloState;
+    private CheckBoxPreference mHaloHide;
+    private CheckBoxPreference mHaloReversed;
+    private INotificationManager mNotificationManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +117,21 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
                     Settings.System.LOW_BATTERY_LED_PULSE_ENABLED, 1) == 1);
             }
         }
+
+        mNotificationManager = INotificationManager.Stub.asInterface(
+                ServiceManager.getService(Context.NOTIFICATION_SERVICE));
+
+        mHaloState = (ListPreference) findPreference(KEY_HALO_STATE);
+        mHaloState.setValue(String.valueOf((isHaloPolicyBlack() ? "1" : "0")));
+        mHaloState.setOnPreferenceChangeListener(this);
+
+        mHaloHide = (CheckBoxPreference) findPreference(KEY_HALO_HIDE);
+        mHaloHide.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.HALO_HIDE, 0) == 1);
+
+        mHaloReversed = (CheckBoxPreference) findPreference(KEY_HALO_REVERSED);
+        mHaloReversed.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.HALO_REVERSED, 1) == 1);
     }
 
     private void updateDualPanePrefs(int value) {
@@ -118,6 +145,15 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
                     : R.string.dual_pane_prefs_on);
             mDualPanePrefs.setSummary(res.getString(R.string.dual_pane_prefs_summary, direction));
         }
+    }
+
+    private boolean isHaloPolicyBlack() {
+        try {
+            return mNotificationManager.isHaloPolicyBlack();
+        } catch (android.os.RemoteException ex) {
+                // System dead
+        }
+        return true;
     }
 
     @Override
@@ -134,7 +170,14 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOW_BATTERY_LED_PULSE_ENABLED,
                     mLowBatteryLedPulseEnabled.isChecked() ? 1 : 0);
-            return true;
+        } else if (preference == mHaloHide) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HALO_HIDE,
+                    mHaloHide.isChecked() ? 1 : 0);
+        } else if (preference == mHaloReversed) {  
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HALO_REVERSED,
+                    mHaloReversed.isChecked() ? 1 : 0);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -147,7 +190,16 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             updateDualPanePrefs(dualPanePrefsValue);
             getActivity().recreate();
             return true;
+       } else if (preference == mHaloState) {
+            boolean state = Integer.valueOf((String) objValue) == 1;
+            try {
+                mNotificationManager.setHaloPolicyBlack(state);
+            } catch (android.os.RemoteException ex) {
+                // System dead
             }
-        return false;
+            return true;
         }
+
+        return false;
+    }
 }
