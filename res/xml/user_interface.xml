@@ -41,13 +41,13 @@
             android:title="@string/wakeup_when_plugged_unplugged_title"
             android:defaultValue="true" />
         
-    <ListPreference
-        android:key="pref_low_battery_warning_policy"
-        android:title="@string/pref_low_battery_warning_policy_title"
-        android:dialogTitle="@string/pref_low_battery_warning_policy_dialog_title"
-        android:entries="@array/pref_low_battery_warning_policy_entries"
-        android:entryValues="@array/pref_low_battery_warning_policy_values"
-        android:defaultValue="0" /> 
+        <ListPreference
+            android:key="pref_low_battery_warning_policy"
+            android:title="@string/pref_low_battery_warning_policy_title"
+            android:dialogTitle="@string/pref_low_battery_warning_policy_dialog_title"
+            android:entries="@array/pref_low_battery_warning_policy_entries"
+            android:entryValues="@array/pref_low_battery_warning_policy_values"
+            android:defaultValue="0" /> 
 
     </PreferenceCategory>
 
@@ -99,6 +99,11 @@
             android:summary="@string/halo_reversed_summary"
             android:dependency="halo_enabled"
             android:defaultValue="true" />
+
+        <CheckBoxPreference
+            android:key="halo_pause"
+            android:title="@string/halo_pause_title"
+            android:summary="@string/halo_pause_summary" />
 
     </PreferenceCategory>
 </PreferenceScreen>

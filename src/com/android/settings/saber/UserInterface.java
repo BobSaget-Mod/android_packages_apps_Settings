@@ -16,6 +16,7 @@
 
 package com.android.settings.saber;
 
+import android.app.ActivityManager;
 import android.app.INotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -47,6 +48,7 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private static final String KEY_HALO_STATE = "halo_state";
     private static final String KEY_HALO_HIDE = "halo_hide";
     private static final String KEY_HALO_REVERSED = "halo_reversed";
+    private static final String KEY_HALO_PAUSE = "halo_pause";
     private static final String KEY_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
 
     private PreferenceCategory mUserInterfaceGeneral;
@@ -59,6 +61,7 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private ListPreference mHaloState;
     private CheckBoxPreference mHaloHide;
     private CheckBoxPreference mHaloReversed;
+    private CheckBoxPreference mHaloPause;
     private INotificationManager mNotificationManager;
     private ListPreference mLowBatteryWarning;
 
@@ -147,6 +150,11 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
         mHaloReversed = (CheckBoxPreference) findPreference(KEY_HALO_REVERSED);
         mHaloReversed.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.HALO_REVERSED, 1) == 1);
+
+        int isLowRAM = (ActivityManager.isLargeRAM()) ? 0 : 1;
+        mHaloPause = (CheckBoxPreference) prefSet.findPreference(KEY_HALO_PAUSE);
+        mHaloPause.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.HALO_PAUSE, isLowRAM) == 1);
     }
 
     private void updateDualPanePrefs(int value) {
@@ -197,6 +205,10 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_REVERSED,
                     mHaloReversed.isChecked() ? 1 : 0);
+        } else if (preference == mHaloPause) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HALO_PAUSE,
+                    mHaloPause.isChecked() ? 1 : 0);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
