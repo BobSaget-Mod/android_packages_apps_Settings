@@ -43,6 +43,7 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private static final String KEY_CHARGING_LED_ENABLED = "charging_led_enabled";
     private static final String KEY_LOW_BATTERY_LED_PULSE_ENABLED = "low_battery_led_pulse_enabled";
     private static final String KEY_HALO_CATEGORY = "halo_category";
+    private static final String KEY_HALO_ENABLED = "halo_enabled";
     private static final String KEY_HALO_STATE = "halo_state";
     private static final String KEY_HALO_HIDE = "halo_hide";
     private static final String KEY_HALO_REVERSED = "halo_reversed";
@@ -53,6 +54,7 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     private CheckBoxPreference mChargingLedEnabled;
     private CheckBoxPreference mLowBatteryLedPulseEnabled;
+    private CheckBoxPreference mHaloEnabled;
     private ListPreference mHaloState;
     private CheckBoxPreference mHaloHide;
     private CheckBoxPreference mHaloReversed;
@@ -121,6 +123,10 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
         mNotificationManager = INotificationManager.Stub.asInterface(
                 ServiceManager.getService(Context.NOTIFICATION_SERVICE));
 
+        mHaloEnabled = (CheckBoxPreference) findPreference(KEY_HALO_ENABLED);
+        mHaloEnabled.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.HALO_ENABLED, 0) == 1);
+
         mHaloState = (ListPreference) findPreference(KEY_HALO_STATE);
         mHaloState.setValue(String.valueOf((isHaloPolicyBlack() ? "1" : "0")));
         mHaloState.setOnPreferenceChangeListener(this);
@@ -170,6 +176,10 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOW_BATTERY_LED_PULSE_ENABLED,
                     mLowBatteryLedPulseEnabled.isChecked() ? 1 : 0);
+        } else if  (preference == mHaloEnabled) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HALO_ENABLED,
+                    mHaloEnabled.isChecked() ? 1 : 0);
         } else if (preference == mHaloHide) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_HIDE,
