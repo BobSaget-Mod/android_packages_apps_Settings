@@ -4746,6 +4746,15 @@
     <!-- Wake up on charger -->
     <string name="user_interface_category_display">Display</string>
     <string name="wakeup_when_plugged_unplugged_title">Wake up when plugged/unplugged</string>
+ 
+    <string name="pref_low_battery_warning_policy_title">Low battery warning</string>
+    <string name="pref_low_battery_warning_policy_dialog_title">Indicate low battery warning with</string>
+    <string name="low_battery_warning_policy_popup_sound">Pop-up and sound</string>
+    <string name="low_battery_warning_policy_notif_sound">Notification and sound</string>
+    <string name="low_battery_warning_policy_popup">Pop-up dialog only</string>
+    <string name="low_battery_warning_policy_notif">Notification only</string>
+    <string name="low_battery_warning_policy_sound">Sound only</string>
+    <string name="low_battery_warning_policy_disabled">Disabled</string> 
 
     <!-- LED Category -->
     <string name="led_category_title_general">LED general</string>
