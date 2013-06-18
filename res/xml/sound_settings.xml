@@ -42,88 +42,6 @@
             android:key="musicfx"
             android:title="@string/musicfx_title" />
 
-    <!-- Quiet hours -->
-    <PreferenceScreen
-            android:key="quiet_hours"
-            android:fragment="com.android.settings.saber.QuietHours"
-            android:title="@string/quiet_hours_title" />
-
-    <PreferenceCategory
-            android:key="category_calls_and_notification"
-            android:title="@string/sound_category_call_ringtone_vibrate_title"/>
-
-    <!-- Do not nest these, or removals in code will break -->
-    <com.android.settings.DefaultRingtonePreference
-            android:key="ringtone"
-            android:title="@string/ringtone_title"
-            android:dialogTitle="@string/ringtone_title"
-            android:persistent="false"
-            android:ringtoneType="ringtone" />
-
-    <CheckBoxPreference
-         android:key="vibrate_when_ringing"
-         android:title="@string/vibrate_when_ringing_title"
-         android:persistent="false" />
-
-    <PreferenceCategory
-            android:title="@string/sound_category_system_title"/>
-
-    <!-- Do not nest these, or removals in code will break -->
-
-    <com.android.settings.DefaultRingtonePreference
-            android:key="notification_sound"
-            android:title="@string/notification_sound_title"
-            android:dialogTitle="@string/notification_sound_dialog_title"
-            android:persistent="false"
-            android:ringtoneType="notification" />
-
-    <CheckBoxPreference
-            android:key="dtmf_tone"
-            android:title="@string/dtmf_tone_enable_title"
-            android:defaultValue="true" />
-
-    <CheckBoxPreference
-            android:key="sound_effects"
-            android:title="@string/sound_effects_enable_title"
-            android:defaultValue="true" />
-
-    <CheckBoxPreference
-            android:key="lock_sounds"
-            android:title="@string/lock_sounds_enable_title"
-            android:defaultValue="true" />
-
-    <CheckBoxPreference
-            android:key="haptic_feedback"
-            android:title="@string/haptic_feedback_enable_title"
-            android:defaultValue="true" />
-
-    <ListPreference
-            android:key="emergency_tone"
-            android:title="@string/emergency_tone_title"
-            android:entries="@array/emergency_tone_entries"
-            android:entryValues="@array/emergency_tone_values" />
-
-    <!-- Dock -->
-    <PreferenceCategory
-        android:key="dock_category"
-        android:title="@string/dock_settings"/>
-
-    <!-- Do not nest these, or removals in code will break -->
-    <PreferenceScreen
-        android:key="dock_audio"
-        android:title="@string/dock_audio_settings_title">
-        <CheckBoxPreference
-            android:title="@string/bluetooth_dock_settings_a2dp"
-            android:key="dock_audio_media_enabled"
-            android:enabled="true"
-            />
-    </PreferenceScreen>
-
-    <CheckBoxPreference
-        android:key="dock_sounds"
-        android:title="@string/dock_sounds_enable_title"
-        android:defaultValue="false" />
-
     <CheckBoxPreference
             android:key="safe_headset_volume"
             android:title="@string/safe_headset_volume_title"
@@ -131,22 +49,105 @@
             android:defaultValue="true" />
 
     <PreferenceCategory
-            android:title="@string/power_notifications_category_title"/>
+            android:key="category_calls_and_notification"
+            android:title="@string/sound_category_call_ringtone_vibrate_title"/>
 
-    <CheckBoxPreference
+        <!-- Do not nest these, or removals in code will break -->
+        <com.android.settings.DefaultRingtonePreference
+            android:key="ringtone"
+            android:title="@string/ringtone_title"
+            android:dialogTitle="@string/ringtone_title"
+            android:persistent="false"
+            android:ringtoneType="ringtone" />
+
+        <CheckBoxPreference
+            android:key="vibrate_when_ringing"
+            android:title="@string/vibrate_when_ringing_title"
+            android:persistent="false" />
+
+    <PreferenceCategory
+        android:title="@string/sound_category_system_title"/>
+
+        <!-- Do not nest these, or removals in code will break -->
+
+        <com.android.settings.DefaultRingtonePreference
+            android:key="notification_sound"
+            android:title="@string/notification_sound_title"
+            android:dialogTitle="@string/notification_sound_dialog_title"
+            android:persistent="false"
+            android:ringtoneType="notification" />
+
+        <CheckBoxPreference
+            android:key="dtmf_tone"
+            android:title="@string/dtmf_tone_enable_title"
+            android:defaultValue="true" />
+
+        <CheckBoxPreference
+            android:key="sound_effects"
+            android:title="@string/sound_effects_enable_title"
+            android:defaultValue="true" />
+
+        <CheckBoxPreference
+            android:key="lock_sounds"
+            android:title="@string/lock_sounds_enable_title"
+            android:defaultValue="true" />
+
+        <CheckBoxPreference
+            android:key="haptic_feedback"
+            android:title="@string/haptic_feedback_enable_title"
+            android:defaultValue="true" />
+
+        <!-- Quiet hours -->
+        <PreferenceScreen
+            android:key="quiet_hours"
+            android:fragment="com.android.settings.saber.QuietHours"
+            android:title="@string/quiet_hours_title" />
+
+        <ListPreference
+            android:key="emergency_tone"
+            android:title="@string/emergency_tone_title"
+            android:entries="@array/emergency_tone_entries"
+            android:entryValues="@array/emergency_tone_values" />
+
+        <!-- Dock -->
+    <PreferenceCategory
+        android:key="dock_category"
+        android:title="@string/dock_settings"/>
+
+        <!-- Do not nest these, or removals in code will break -->
+        <PreferenceScreen
+            android:key="dock_audio"
+            android:title="@string/dock_audio_settings_title">
+
+            <CheckBoxPreference
+                android:title="@string/bluetooth_dock_settings_a2dp"
+                android:key="dock_audio_media_enabled"
+                android:enabled="true" />
+        </PreferenceScreen>
+
+        <CheckBoxPreference
+            android:key="dock_sounds"
+            android:title="@string/dock_sounds_enable_title"
+            android:defaultValue="false" />
+
+    <PreferenceCategory
+        android:key="power_notifications_category"
+        android:title="@string/power_notifications_category_title"/>
+
+        <CheckBoxPreference
             android:key="power_notifications"
             android:title="@string/power_notifications_enable_title"
             android:defaultValue="false"
             android:persistent="false" />
 
-    <CheckBoxPreference
+        <CheckBoxPreference
             android:key="power_notifications_vibrate"
             android:title="@string/power_notifications_vibrate_title"
             android:defaultValue="false"
             android:dependency="power_notifications"
             android:persistent="false" />
 
-    <Preference
+        <Preference
             android:key="power_notifications_ringtone"
             android:title="@string/power_notifications_ringtone_title"
             android:dependency="power_notifications"

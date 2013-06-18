@@ -84,11 +84,8 @@ public class SystemSettings extends SettingsPreferenceFragment implements
             prefScreen.removePreference(findPreference(KEY_NAVIGATION_RING));
             prefScreen.removePreference((PreferenceCategory) findPreference(KEY_NAVIGATION_BAR_CATEGORY));
             prefScreen.removePreference(findPreference(KEY_POWER_MENU));
-            prefScreen.removePreference(findPreference(KEY_USER_INTERFACE));
-
         }
 
-        // User Interface. Only show on selected devices
         mUserInterface = (PreferenceScreen) findPreference(KEY_USER_INTERFACE);
 
         // Preferences that applies to all users

@@ -38,12 +38,14 @@ import android.media.RingtoneManager;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
@@ -87,6 +89,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_VOLBTN_MUSIC_CTRL = "volbtn_music_controls";
     private static final String KEY_SAFE_HEADSET_VOLUME = "safe_headset_volume";
     private static final String KEY_QUIET_HOURS = "quiet_hours";
+    private static final String KEY_POWER_NOTIFICATIONS_CATEGORY = "power_notifications_category";
     private static final String KEY_POWER_NOTIFICATIONS = "power_notifications";
     private static final String KEY_POWER_NOTIFICATIONS_VIBRATE = "power_notifications_vibrate";
     private static final String KEY_POWER_NOTIFICATIONS_RINGTONE = "power_notifications_ringtone";
@@ -127,9 +130,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Intent mDockIntent;
     private CheckBoxPreference mDockAudioMediaEnabled;
 
+    private PreferenceCategory mPowerSoundsCategory;
     private CheckBoxPreference mPowerSounds;
     private CheckBoxPreference mPowerSoundsVibrate;
     private Preference mPowerSoundsRingtone;
+    private boolean mPrimaryUser;
 
     // To track whether a confirmation dialog was clicked.
     private boolean mDialogClicked;
@@ -168,6 +173,8 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         addPreferencesFromResource(R.xml.sound_settings);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
 
         if (TelephonyManager.PHONE_TYPE_CDMA != activePhoneType) {
             // device is not CDMA, do not display CDMA emergency_tone
@@ -285,16 +292,36 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         // power state change notification sounds
         mPowerSounds = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS);
+
+        mPowerSoundsVibrate = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
+
+        mPowerSoundsRingtone = findPreference(KEY_POWER_NOTIFICATIONS_RINGTONE);
+
+        mPowerSoundsCategory = (PreferenceCategory) prefSet.findPreference(KEY_POWER_NOTIFICATIONS_CATEGORY);
+
+        // USER_OWNER is logged in
+        mPrimaryUser = UserHandle.myUserId() == UserHandle.USER_OWNER;
+        if (mPrimaryUser) {
+            // do nothing, show all settings
+        } else {
+            // NON USER_OWNER is logged in
+            // remove non multi-user compatible settings
+            prefSet.removePreference(findPreference(KEY_POWER_NOTIFICATIONS));
+            prefSet.removePreference(findPreference(KEY_POWER_NOTIFICATIONS_VIBRATE));
+            prefSet.removePreference(findPreference(KEY_POWER_NOTIFICATIONS_RINGTONE));
+            prefSet.removePreference((PreferenceCategory) findPreference(KEY_POWER_NOTIFICATIONS_CATEGORY));
+        }
+
         mPowerSounds.setChecked(Settings.Global.getInt(resolver,
                 Settings.Global.POWER_NOTIFICATIONS_ENABLED, 0) != 0);
-        mPowerSoundsVibrate = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
+
         mPowerSoundsVibrate.setChecked(Settings.Global.getInt(resolver,
                 Settings.Global.POWER_NOTIFICATIONS_VIBRATE, 0) != 0);
         if (vibrator == null || !vibrator.hasVibrator()) {
             removePreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
+            mPowerSoundsVibrate = null;
         }
 
-        mPowerSoundsRingtone = findPreference(KEY_POWER_NOTIFICATIONS_RINGTONE);
         String currentPowerRingtonePath =
                 Settings.Global.getString(resolver, Settings.Global.POWER_NOTIFICATIONS_RINGTONE);
 

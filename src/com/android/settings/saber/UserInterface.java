@@ -22,6 +22,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.os.ServiceManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -34,16 +35,16 @@ import android.provider.Settings;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class UserInterface extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
+public class UserInterface extends SettingsPreferenceFragment implements
+        Preference.OnPreferenceChangeListener {
 
-    private static final String USER_INTERFACE_CATEGORY_GENERAL = "user_interface_category_general";
     private static final String USER_INTERFACE_CATEGORY_DISPLAY = "user_interface_category_display";
     private static final String DUAL_PANE_PREFS = "dual_pane_prefs";
     private static final String KEY_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final String LED_CATEGORY_GENERAL = "led_category_general";
     private static final String KEY_CHARGING_LED_ENABLED = "charging_led_enabled";
     private static final String KEY_LOW_BATTERY_LED_PULSE_ENABLED = "low_battery_led_pulse_enabled";
-    private static final String KEY_HALO_CATEGORY = "halo_category";
+    private static final String USER_INTERFACE_CATEGORY_HALO = "user_interface_category_halo";
     private static final String KEY_HALO_ENABLED = "halo_enabled";
     private static final String KEY_HALO_STATE = "halo_state";
     private static final String KEY_HALO_HIDE = "halo_hide";
@@ -51,12 +52,12 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private static final String KEY_HALO_PAUSE = "halo_pause";
     private static final String KEY_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
 
-    private PreferenceCategory mUserInterfaceGeneral;
     private PreferenceCategory mUserInterfaceDisplay;
     private ListPreference mDualPanePrefs;
     private CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     private CheckBoxPreference mChargingLedEnabled;
     private CheckBoxPreference mLowBatteryLedPulseEnabled;
+    private PreferenceCategory mUserInterfaceHalo;
     private CheckBoxPreference mHaloEnabled;
     private ListPreference mHaloState;
     private CheckBoxPreference mHaloHide;
@@ -64,6 +65,7 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     private CheckBoxPreference mHaloPause;
     private INotificationManager mNotificationManager;
     private ListPreference mLowBatteryWarning;
+    private boolean mPrimaryUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,13 +77,11 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
 
         // General
         // Dual pane, only show on selected devices
-        mUserInterfaceGeneral = (PreferenceCategory) prefSet.findPreference(USER_INTERFACE_CATEGORY_GENERAL);
         mDualPanePrefs = (ListPreference) prefSet.findPreference(DUAL_PANE_PREFS);
-        if (mUserInterfaceGeneral != null) {
+        if (mDualPanePrefs != null) {
             if (!getResources().getBoolean(R.bool.config_show_user_interface_dual_pane)) {
-                getPreferenceScreen().removePreference((PreferenceCategory) findPreference(USER_INTERFACE_CATEGORY_GENERAL));
                 getPreferenceScreen().removePreference(mDualPanePrefs);
-                mUserInterfaceGeneral = null;
+                mDualPanePrefs = null;
             } else {
                 mDualPanePrefs.setOnPreferenceChangeListener(this);
                 int dualPanePrefsValue = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
@@ -89,6 +89,36 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
                 mDualPanePrefs.setValue(String.valueOf(dualPanePrefsValue));
                 updateDualPanePrefs(dualPanePrefsValue);
             }
+        }
+
+        mNotificationManager = INotificationManager.Stub.asInterface(
+                ServiceManager.getService(Context.NOTIFICATION_SERVICE));
+
+        mHaloEnabled = (CheckBoxPreference) findPreference(KEY_HALO_ENABLED);
+
+        mHaloState = (ListPreference) findPreference(KEY_HALO_STATE);
+
+        mHaloHide = (CheckBoxPreference) findPreference(KEY_HALO_HIDE);
+
+        mHaloReversed = (CheckBoxPreference) findPreference(KEY_HALO_REVERSED);
+
+        int isLowRAM = (ActivityManager.isLargeRAM()) ? 0 : 1;
+        mHaloPause = (CheckBoxPreference) prefSet.findPreference(KEY_HALO_PAUSE);
+
+        mUserInterfaceHalo = (PreferenceCategory) prefSet.findPreference(USER_INTERFACE_CATEGORY_HALO);
+
+        // USER_OWNER is logged in
+        mPrimaryUser = UserHandle.myUserId() == UserHandle.USER_OWNER;
+        if (mPrimaryUser) {
+            // do nothing, show all settings
+        } else {
+            // NON USER_OWNER is logged in
+            // remove non multi-user compatible settings
+            prefSet.removePreference(findPreference(KEY_HALO_ENABLED));
+            prefSet.removePreference(findPreference(KEY_HALO_STATE));
+            prefSet.removePreference(findPreference(KEY_HALO_HIDE));
+            prefSet.removePreference(findPreference(KEY_HALO_REVERSED));
+            prefSet.removePreference((PreferenceCategory) findPreference(USER_INTERFACE_CATEGORY_HALO));
         }
 
         // Display
@@ -132,28 +162,20 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             }
         }
 
-        mNotificationManager = INotificationManager.Stub.asInterface(
-                ServiceManager.getService(Context.NOTIFICATION_SERVICE));
-
-        mHaloEnabled = (CheckBoxPreference) findPreference(KEY_HALO_ENABLED);
+ 
         mHaloEnabled.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.HALO_ENABLED, 0) == 1);
 
-        mHaloState = (ListPreference) findPreference(KEY_HALO_STATE);
         mHaloState.setValue(String.valueOf((isHaloPolicyBlack() ? "1" : "0")));
         mHaloState.setOnPreferenceChangeListener(this);
 
-        mHaloHide = (CheckBoxPreference) findPreference(KEY_HALO_HIDE);
         mHaloHide.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.HALO_HIDE, 0) == 1);
 
-        mHaloReversed = (CheckBoxPreference) findPreference(KEY_HALO_REVERSED);
         mHaloReversed.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.HALO_REVERSED, 1) == 1);
 
-        int isLowRAM = (ActivityManager.isLargeRAM()) ? 0 : 1;
-        mHaloPause = (CheckBoxPreference) prefSet.findPreference(KEY_HALO_PAUSE);
-        mHaloPause.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+        mHaloPause.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.HALO_PAUSE, isLowRAM) == 1);
     }
 
