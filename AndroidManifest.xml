@@ -1555,7 +1555,8 @@
         <activity android:name=".saber.SystemSettings" />
         <activity android:name=".saber.LockscreenTargets" />
         <activity android:name=".notificationlight.NotificationLightSettings" />
-        <activity android:name=".saber.PowerMenu" /> 
+        <activity android:name=".saber.PowerMenu" />
+        <activity android:name=".saber.PowerWidget" />
 
         <!-- SABER MODS END -->
 

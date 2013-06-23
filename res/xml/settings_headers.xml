@@ -67,8 +67,6 @@
         android:icon="@drawable/ic_settings_system"
         android:fragment="com.android.settings.saber.SystemSettings"
         android:title="@string/system_settings_title" />
-    
-    <!-- SABER MODS END -->
 
     <!-- Themes -->
     <header
@@ -81,6 +79,7 @@
             android:targetClass="com.tmobile.themechooser.ThemeChooser" />
     </header>
 
+    <!-- SABER MODS END -->
 
     <!-- DEVICE -->
     <header android:id="@+id/device_section"

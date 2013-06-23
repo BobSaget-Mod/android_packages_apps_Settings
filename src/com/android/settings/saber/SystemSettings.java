@@ -16,6 +16,7 @@
 
 package com.android.settings.saber;
 
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
@@ -53,12 +54,18 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_PIE_CONTROL = "pie_control";
     private static final String KEY_POWER_MENU = "power_menu";
+    private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
+    private static final String KEY_NOTIFICATION_DRAWER_TABLET = "notification_drawer_tablet";
 
     private PreferenceScreen mUserInterface;
     private PreferenceScreen mNotificationPulse;
     private PreferenceCategory mQuickSettingsCategory;
     private ListPreference mQuickPulldown;
     private PreferenceScreen mPieControl;
+    private PreferenceScreen mPhoneDrawer;
+    private PreferenceScreen mTabletDrawer;
+
+    private final Configuration mCurConfig = new Configuration();
     private boolean mPrimaryUser;
 
     @Override
@@ -67,6 +74,19 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
         addPreferencesFromResource(R.xml.system_settings);
         PreferenceScreen prefScreen = getPreferenceScreen();
+
+        mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
+        mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
+
+        /*if (Utils.isTablet(getActivity())) {
+            if (mPhoneDrawer != null) {
+                getPreferenceScreen().removePreference(mPhoneDrawer);
+            }
+        } else*/ {
+            if (mTabletDrawer != null) {
+                getPreferenceScreen().removePreference(mTabletDrawer);
+            }
+        }
 
         // Dont display the lock clock preference if its not installed
         removePreferenceIfPackageNotInstalled(findPreference(KEY_LOCK_CLOCK));
