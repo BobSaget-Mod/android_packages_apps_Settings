@@ -44,7 +44,6 @@ public class PowerWidgetUtil {
     public static final String BUTTON_SCREENTIMEOUT = "toggleScreenTimeout";
     public static final String BUTTON_MOBILEDATA = "toggleMobileData";
     public static final String BUTTON_LOCKSCREEN = "toggleLockScreen";
-    public static final String BUTTON_NETWORKMODE = "toggleNetworkMode";
     public static final String BUTTON_AUTOROTATE = "toggleAutoRotate";
     public static final String BUTTON_AIRPLANE = "toggleAirplane";
     public static final String BUTTON_FLASHLIGHT = "toggleFlashlight";
@@ -79,9 +78,6 @@ public class PowerWidgetUtil {
         BUTTONS.put(BUTTON_MOBILEDATA, new PowerWidgetUtil.ButtonInfo(
                 BUTTON_MOBILEDATA, R.string.title_toggle_mobiledata,
                 "com.android.systemui:drawable/stat_data_on"));
-        BUTTONS.put(BUTTON_NETWORKMODE, new PowerWidgetUtil.ButtonInfo(
-                BUTTON_NETWORKMODE, R.string.title_toggle_networkmode,
-                "com.android.systemui:drawable/stat_2g3g_on"));
         BUTTONS.put(BUTTON_SCREENTIMEOUT, new PowerWidgetUtil.ButtonInfo(
                 BUTTON_SCREENTIMEOUT, R.string.title_toggle_screentimeout,
                 "com.android.systemui:drawable/stat_screen_timeout_on"));

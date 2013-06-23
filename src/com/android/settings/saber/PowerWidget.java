@@ -152,7 +152,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
         private static final String SELECT_BUTTON_KEY_PREFIX = "pref_button_";
 
         private static final String EXP_BRIGHTNESS_MODE = "pref_brightness_mode";
-        private static final String EXP_NETWORK_MODE = "pref_network_mode";
         private static final String EXP_SCREENTIMEOUT_MODE = "pref_screentimeout_mode";
         private static final String EXP_RING_MODE = "pref_ring_mode";
         private static final String EXP_FLASH_MODE = "pref_flash_mode";
@@ -160,7 +159,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
         private HashMap<CheckBoxPreference, String> mCheckBoxPrefs = new HashMap<CheckBoxPreference, String>();
 
         MultiSelectListPreference mBrightnessMode;
-        ListPreference mNetworkMode;
         ListPreference mScreenTimeoutMode;
         MultiSelectListPreference mRingMode;
         ListPreference mFlashMode;
@@ -193,8 +191,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
                 updateSummary(storedBrightnessMode, mBrightnessMode, R.string.pref_brightness_mode_summary);
             }
             mBrightnessMode.setOnPreferenceChangeListener(this);
-            mNetworkMode = (ListPreference) prefSet.findPreference(EXP_NETWORK_MODE);
-            mNetworkMode.setOnPreferenceChangeListener(this);
             mScreenTimeoutMode = (ListPreference) prefSet.findPreference(EXP_SCREENTIMEOUT_MODE);
             mScreenTimeoutMode.setOnPreferenceChangeListener(this);
             mRingMode = (MultiSelectListPreference) prefSet.findPreference(EXP_RING_MODE);
@@ -213,7 +209,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
             // TODO: set the default values of the items
 
             // Update the summary text
-            mNetworkMode.setSummary(mNetworkMode.getEntry());
             mScreenTimeoutMode.setSummary(mScreenTimeoutMode.getEntry());
             mFlashMode.setSummary(mFlashMode.getEntry());
 
@@ -240,8 +235,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
             boolean isMobileData = pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
             if (!isMobileData) {
                 PowerWidgetUtil.BUTTONS.remove(PowerWidgetUtil.BUTTON_MOBILEDATA);
-                PowerWidgetUtil.BUTTONS.remove(PowerWidgetUtil.BUTTON_NETWORKMODE);
-                prefButtonsModes.removePreference(mNetworkMode);
             }
 
             // fill that checkbox map!
@@ -272,30 +265,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
                     // disable flashlight if it's not supported
                     cb.setEnabled(false);
                     mFlashMode.setEnabled(false);
-                } else if (PowerWidgetUtil.BUTTON_NETWORKMODE.equals(button.getId())) {
-                    // some phones run on networks not supported by this button,
-                    // so disable it
-                    int network_state = -99;
-
-                    try {
-                        network_state = Settings.Secure.getInt(getActivity()
-                                .getApplicationContext().getContentResolver(),
-                                Settings.Global.PREFERRED_NETWORK_MODE);
-                    } catch (Settings.SettingNotFoundException e) {
-                        Log.e(TAG, "Unable to retrieve PREFERRED_NETWORK_MODE", e);
-                    }
-
-                    switch (network_state) {
-                    // list of supported network modes
-                        case Phone.NT_MODE_WCDMA_PREF:
-                        case Phone.NT_MODE_WCDMA_ONLY:
-                        case Phone.NT_MODE_GSM_UMTS:
-                        case Phone.NT_MODE_GSM_ONLY:
-                            break;
-                        default:
-                            cb.setEnabled(false);
-                            break;
-                    }
                 }
 
                 // add to the category
@@ -354,12 +323,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
                         Settings.System.EXPANDED_BRIGHTNESS_MODE, TextUtils.join(SEPARATOR, arrValue));
                 updateSummary(TextUtils.join(SEPARATOR, arrValue),
                         mBrightnessMode, R.string.pref_brightness_mode_summary);
-            } else if (preference == mNetworkMode) {
-                int value = Integer.valueOf((String) newValue);
-                int index = mNetworkMode.findIndexOfValue((String) newValue);
-                Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                        Settings.System.EXPANDED_NETWORK_MODE, value);
-                mNetworkMode.setSummary(mNetworkMode.getEntries()[index]);
             } else if (preference == mScreenTimeoutMode) {
                 int value = Integer.valueOf((String) newValue);
                 int index = mScreenTimeoutMode.findIndexOfValue((String) newValue);
