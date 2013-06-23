@@ -17,17 +17,12 @@
 package com.android.settings.saber;
 
 import static com.android.internal.util.sm.QSConstants.TILE_BLUETOOTH;
+import static com.android.internal.util.sm.QSConstants.TILE_CAMERA;
 import static com.android.internal.util.sm.QSConstants.TILE_MOBILEDATA;
 import static com.android.internal.util.sm.QSConstants.TILE_NFC;
 import static com.android.internal.util.sm.QSConstants.TILE_WIFIAP;
 import static com.android.internal.util.sm.QSConstants.TILE_TORCH;
 import static com.android.internal.util.sm.QSConstants.TILE_EXPANDEDDESKTOP;
-import static com.android.internal.util.sm.QSUtils.deviceSupportsBluetooth;
-import static com.android.internal.util.sm.QSUtils.deviceSupportsNfc;
-import static com.android.internal.util.sm.QSUtils.deviceSupportsUsbTether;
-import static com.android.internal.util.sm.QSUtils.deviceSupportsWifiDisplay;
-import static com.android.internal.util.sm.QSUtils.expandedDesktopEnabled;
-
 
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
@@ -43,6 +38,8 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import com.android.internal.telephony.Phone;
+import com.android.internal.util.sm.QSUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
@@ -140,7 +137,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         mDynamicUsbTether = (CheckBoxPreference) prefSet.findPreference(DYNAMIC_USBTETHER);
 
         if (mDynamicUsbTether != null) {
-            if (deviceSupportsUsbTether(getActivity())) {
+            if (QSUtils.deviceSupportsUsbTether(getActivity())) {
                 mDynamicUsbTether.setChecked(Settings.System.getInt(resolver, Settings.System.QS_DYNAMIC_USBTETHER, 1) == 1);
             } else {
                 mDynamicTiles.removePreference(mDynamicUsbTether);
@@ -149,7 +146,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         }
         mDynamicWifi = (CheckBoxPreference) prefSet.findPreference(DYNAMIC_WIFI);
         if (mDynamicWifi != null) {
-            if (deviceSupportsWifiDisplay(getActivity())) {
+            if (QSUtils.deviceSupportsWifiDisplay(getActivity())) {
                 mDynamicWifi.setChecked(Settings.System.getInt(resolver, Settings.System.QS_DYNAMIC_WIFI, 1) == 1);
             } else {
                 mDynamicTiles.removePreference(mDynamicWifi);
@@ -165,12 +162,12 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         }
 
         // Don't show the bluetooth options if not supported
-        if (!deviceSupportsBluetooth()) {
+        if (!QSUtils.deviceSupportsBluetooth()) {
             QuickSettingsUtil.TILES.remove(TILE_BLUETOOTH);
         }
 
         // Don't show the NFC tile if not supported
-        if (!deviceSupportsNfc(getActivity())) {
+        if (!QSUtils.deviceSupportsNfc(getActivity())) {
             QuickSettingsUtil.TILES.remove(TILE_NFC);
         }
 
@@ -180,8 +177,13 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         }
 
         // Don't show the Expanded desktop tile if expanded desktop is disabled
-        if (!expandedDesktopEnabled(resolver)) {
+        if (!QSUtils.expandedDesktopEnabled(resolver)) {
             QuickSettingsUtil.TILES.remove(TILE_EXPANDEDDESKTOP);
+        }
+
+        // Don't show the Camera tile if the device has no cameras
+        if (!QSUtils.deviceSupportsCamera()) {
+            QuickSettingsUtil.TILES.remove(TILE_CAMERA);
         }
     }
 
