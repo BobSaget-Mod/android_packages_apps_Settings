@@ -4673,16 +4673,6 @@
     <string name="adb_notify">USB debugging notify</string>
     <string name="adb_notify_summary">Display a notification when USB debugging is connected</string>
 
-    <!-- Quick Settings -->
-    <string name="quick_settings_title_general">Quick Settings</string>
-    <string name="title_quick_pulldown">Quick pulldown</string>
-    <string name="summary_quick_pulldown">%1$s edge of the status bar pulls down Quick Settings</string>
-    <string name="quick_pulldown_summary_left">Left</string>
-    <string name="quick_pulldown_summary_right">Right</string>
-    <string name="quick_pulldown_off">Off</string>
-    <string name="quick_pulldown_left">Left</string>
-    <string name="quick_pulldown_right">Right</string>
-
     <!-- Volume rocker behaviours -->
     <string name="volume_rocker_category_title">Volume rocker behaviors</string>
     <!-- Volume rocker wake -->

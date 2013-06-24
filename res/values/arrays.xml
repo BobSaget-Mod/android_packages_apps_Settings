@@ -933,20 +933,6 @@
         <item>24</item>
     </string-array>
 
-    <!-- Quick Settings -->
-    <!-- Quick Settings pulldown -->
-    <string-array name="quick_pulldown_entries" translatable="false">
-        <item>@string/quick_pulldown_off</item>
-        <item>@string/quick_pulldown_right</item>
-        <item>@string/quick_pulldown_left</item>
-    </string-array>
-
-    <string-array name="quick_pulldown_values" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
     <!-- Values for the notification light pulse spinners -->
     <string-array name="notification_pulse_length_entries">
         <item>@string/pulse_length_always_on</item>

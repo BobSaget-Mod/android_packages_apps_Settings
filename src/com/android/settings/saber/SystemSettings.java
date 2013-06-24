@@ -48,8 +48,6 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String KEY_LOCKSCREEN_TARGETS = "lockscreen_targets";
     private static final String KEY_LOCK_CLOCK = "lock_clock";
     private static final String KEY_VOLUME_ROCKER_SETTINGS = "volume_rocker_settings";
-    private static final String QUICK_SETTINGS_CATEGORY = "quick_settings_category";
-    private static final String QUICK_PULLDOWN = "quick_pulldown";
     private static final String KEY_NOTIFICATION_PULSE_CATEGORY = "category_notification_pulse";
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_PIE_CONTROL = "pie_control";
@@ -59,8 +57,6 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
     private PreferenceScreen mUserInterface;
     private PreferenceScreen mNotificationPulse;
-    private PreferenceCategory mQuickSettingsCategory;
-    private ListPreference mQuickPulldown;
     private PreferenceScreen mPieControl;
     private PreferenceScreen mPhoneDrawer;
     private PreferenceScreen mTabletDrawer;
@@ -121,22 +117,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         
         // Pie controls
         mPieControl = (PreferenceScreen) findPreference(KEY_PIE_CONTROL);
-
-        // Quick Settings category and pull down. Only show on phones
-        mQuickSettingsCategory = (PreferenceCategory) getPreferenceScreen().findPreference(QUICK_SETTINGS_CATEGORY);
-        mQuickPulldown = (ListPreference) getPreferenceScreen().findPreference(QUICK_PULLDOWN);
-        if (!Utils.isPhone(getActivity())) {
-            if(mQuickPulldown != null)
-                prefScreen.removePreference(mQuickPulldown);
-                prefScreen.removePreference((PreferenceCategory) findPreference(QUICK_SETTINGS_CATEGORY));
-            } else {
-                mQuickPulldown.setOnPreferenceChangeListener(this);
-                int quickPulldownValue = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                        Settings.System.QS_QUICK_PULLDOWN, 0);
-                mQuickPulldown.setValue(String.valueOf(quickPulldownValue));
-                updatePulldownSummary(quickPulldownValue);
-            }
-        }
+    }
 
     private void updateLightPulseDescription() {
         if (Settings.System.getInt(getActivity().getContentResolver(),
@@ -145,30 +126,6 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         } else {
             mNotificationPulse.setSummary(getString(R.string.notification_light_disabled));
         }
-    }
-
-    private void updatePulldownSummary(int value) {
-        Resources res = getResources();
-        if (value == 0) {
-            /* quick pulldown deactivated */
-            mQuickPulldown.setSummary(res.getString(R.string.quick_pulldown_off));
-        } else {
-            String direction = res.getString(value == 2
-                    ? R.string.quick_pulldown_summary_left
-                    : R.string.quick_pulldown_summary_right);
-            mQuickPulldown.setSummary(res.getString(R.string.summary_quick_pulldown, direction));
-        }
-    }
-
-    public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mQuickPulldown) {
-            int quickPulldownValue = Integer.valueOf((String) objValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.QS_QUICK_PULLDOWN, quickPulldownValue);
-            updatePulldownSummary(quickPulldownValue);
-            return true;
-        }
-        return false;
     }
 
     private void updatePieControlDescription() {

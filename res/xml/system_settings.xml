@@ -50,18 +50,6 @@
         android:title="@string/volume_rocker_category_title" />
 
     <PreferenceCategory
-        android:key="quick_settings_category"
-        android:title="@string/quick_settings_title_general" >
-
-        <ListPreference
-            android:key="quick_pulldown"
-            android:title="@string/title_quick_pulldown"
-            android:entries="@array/quick_pulldown_entries"
-            android:entryValues="@array/quick_pulldown_values"
-            android:persistent="false" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="category_notification_pulse"
         android:title="@string/category_notification_pulse_title">
 
