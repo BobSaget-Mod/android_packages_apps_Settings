@@ -22,7 +22,6 @@ import static com.android.internal.util.sm.QSConstants.TILE_NFC;
 import static com.android.internal.util.sm.QSConstants.TILE_WIFIAP;
 import static com.android.internal.util.sm.QSConstants.TILE_TORCH;
 import static com.android.internal.util.sm.QSUtils.deviceSupportsBluetooth;
-import static com.android.internal.util.sm.QSUtils.deviceSupportsImeSwitcher;
 import static com.android.internal.util.sm.QSUtils.deviceSupportsNfc;
 import static com.android.internal.util.sm.QSUtils.deviceSupportsUsbTether;
 import static com.android.internal.util.sm.QSUtils.deviceSupportsWifiDisplay;
@@ -134,15 +133,9 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         mDynamicBugReport = (CheckBoxPreference) prefSet.findPreference(DYNAMIC_BUGREPORT);
         mDynamicBugReport.setChecked(Settings.System.getInt(resolver, Settings.System.QS_DYNAMIC_BUGREPORT, 1) == 1);
         mDynamicIme = (CheckBoxPreference) prefSet.findPreference(DYNAMIC_IME);
-        if (mDynamicIme != null) {
-            if (deviceSupportsImeSwitcher(getActivity())) {
-                mDynamicIme.setChecked(Settings.System.getInt(resolver, Settings.System.QS_DYNAMIC_IME, 1) == 1);
-            } else {
-                mDynamicTiles.removePreference(mDynamicIme);
-                mDynamicIme = null;
-            }
-        }
+        mDynamicIme.setChecked(Settings.System.getInt(resolver, Settings.System.QS_DYNAMIC_IME, 1) == 1);
         mDynamicUsbTether = (CheckBoxPreference) prefSet.findPreference(DYNAMIC_USBTETHER);
+
         if (mDynamicUsbTether != null) {
             if (deviceSupportsUsbTether(getActivity())) {
                 mDynamicUsbTether.setChecked(Settings.System.getInt(resolver, Settings.System.QS_DYNAMIC_USBTETHER, 1) == 1);
@@ -195,7 +188,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
             Settings.System.putInt(resolver, Settings.System.QS_DYNAMIC_BUGREPORT,
                     mDynamicBugReport.isChecked() ? 1 : 0);
             return true;
-        } else if (mDynamicIme != null && preference == mDynamicIme) {
+        } else if (preference == mDynamicIme) {
             Settings.System.putInt(resolver, Settings.System.QS_DYNAMIC_IME,
                     mDynamicIme.isChecked() ? 1 : 0);
             return true;
