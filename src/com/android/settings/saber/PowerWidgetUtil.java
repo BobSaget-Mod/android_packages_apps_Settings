@@ -48,10 +48,6 @@ public class PowerWidgetUtil {
     public static final String BUTTON_AIRPLANE = "toggleAirplane";
     public static final String BUTTON_FLASHLIGHT = "toggleFlashlight";
     public static final String BUTTON_SLEEP = "toggleSleepMode";
-    public static final String BUTTON_MEDIA_PLAY_PAUSE = "toggleMediaPlayPause";
-    public static final String BUTTON_MEDIA_PREVIOUS = "toggleMediaPrevious";
-    public static final String BUTTON_MEDIA_NEXT = "toggleMediaNext";
-    public static final String BUTTON_LTE = "toggleLte";
 
     public static final HashMap<String, ButtonInfo> BUTTONS = new HashMap<String, ButtonInfo>();
     static {
@@ -96,22 +92,6 @@ public class PowerWidgetUtil {
         BUTTONS.put(BUTTON_WIFIAP, new PowerWidgetUtil.ButtonInfo(
                 BUTTON_WIFIAP, R.string.title_toggle_wifiap,
                 "com.android.systemui:drawable/stat_wifi_ap_on"));
-        BUTTONS.put(BUTTON_MEDIA_PREVIOUS, new PowerWidgetUtil.ButtonInfo(
-                BUTTON_MEDIA_PREVIOUS, R.string.title_toggle_media_previous,
-                "com.android.systemui:drawable/stat_media_previous"));
-        BUTTONS.put(BUTTON_MEDIA_PLAY_PAUSE, new PowerWidgetUtil.ButtonInfo(
-                BUTTON_MEDIA_PLAY_PAUSE, R.string.title_toggle_media_play_pause,
-                "com.android.systemui:drawable/stat_media_play"));
-        BUTTONS.put(BUTTON_MEDIA_NEXT, new PowerWidgetUtil.ButtonInfo(
-                BUTTON_MEDIA_NEXT, R.string.title_toggle_media_next,
-                "com.android.systemui:drawable/stat_media_next"));
-        /* Disabled until LTE support is re-added
-        if(Phone.LTE_ON_CDMA_TRUE == TelephonyManager.getDefault().getLteOnCdmaMode() ||
-           TelephonyManager.getDefault().getLteOnGsmMode() != 0) {
-            BUTTONS.put(BUTTON_LTE, new PowerWidgetUtil.ButtonInfo(
-                    BUTTON_LTE, R.string.title_toggle_lte,
-                    "com.android.systemui:drawable/stat_lte_on"));
-        }*/
     }
 
     private static final String BUTTON_DELIMITER = "|";
