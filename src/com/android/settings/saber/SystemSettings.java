@@ -35,8 +35,7 @@ import com.android.settings.Utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SystemSettings extends SettingsPreferenceFragment implements
-        Preference.OnPreferenceChangeListener {
+public class SystemSettings extends SettingsPreferenceFragment {
     private static final String TAG = "SystemSettings";
 
     private static final String KEY_USER_INTERFACE = "user_interface";
