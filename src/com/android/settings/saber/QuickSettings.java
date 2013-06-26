@@ -21,10 +21,13 @@ import static com.android.internal.util.sm.QSConstants.TILE_MOBILEDATA;
 import static com.android.internal.util.sm.QSConstants.TILE_NFC;
 import static com.android.internal.util.sm.QSConstants.TILE_WIFIAP;
 import static com.android.internal.util.sm.QSConstants.TILE_TORCH;
+import static com.android.internal.util.sm.QSConstants.TILE_EXPANDEDDESKTOP;
 import static com.android.internal.util.sm.QSUtils.deviceSupportsBluetooth;
 import static com.android.internal.util.sm.QSUtils.deviceSupportsNfc;
 import static com.android.internal.util.sm.QSUtils.deviceSupportsUsbTether;
 import static com.android.internal.util.sm.QSUtils.deviceSupportsWifiDisplay;
+import static com.android.internal.util.sm.QSUtils.expandedDesktopEnabled;
+
 
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
@@ -166,16 +169,20 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
             QuickSettingsUtil.TILES.remove(TILE_BLUETOOTH);
         }
 
-        // Dont show the NFC tile if not supported
+        // Don't show the NFC tile if not supported
         if (!deviceSupportsNfc(getActivity())) {
             QuickSettingsUtil.TILES.remove(TILE_NFC);
         }
 
-        // Dont show the torch tile if not supported
+        // Don't show the Torch tile if not supported
         if (!getResources().getBoolean(R.bool.has_led_flash)) {
             QuickSettingsUtil.TILES.remove(TILE_TORCH);
         }
 
+        // Don't show the Expanded desktop tile if expanded desktop is disabled
+        if (!expandedDesktopEnabled(resolver)) {
+            QuickSettingsUtil.TILES.remove(TILE_EXPANDEDDESKTOP);
+        }
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
