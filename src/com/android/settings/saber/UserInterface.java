@@ -207,30 +207,37 @@ public class UserInterface extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED,
                     mWakeUpWhenPluggedOrUnplugged.isChecked() ? 1 : 0);
+            return true;
         } else if (preference == mChargingLedEnabled) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.CHARGING_LED_ENABLED,
                     mChargingLedEnabled.isChecked() ? 1 : 0);
+            return true;
         } else if (preference == mLowBatteryLedPulseEnabled) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOW_BATTERY_LED_PULSE_ENABLED,
                     mLowBatteryLedPulseEnabled.isChecked() ? 1 : 0);
+            return true;
         } else if  (preference == mHaloEnabled) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_ENABLED,
                     mHaloEnabled.isChecked() ? 1 : 0);
+            return true;
         } else if (preference == mHaloHide) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_HIDE,
                     mHaloHide.isChecked() ? 1 : 0);
+            return true;
         } else if (preference == mHaloReversed) {  
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_REVERSED,
                     mHaloReversed.isChecked() ? 1 : 0);
+            return true;
         } else if (preference == mHaloPause) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_PAUSE,
                     mHaloPause.isChecked() ? 1 : 0);
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

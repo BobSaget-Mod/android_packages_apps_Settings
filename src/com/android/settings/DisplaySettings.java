@@ -61,6 +61,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_SCREEN_SAVER = "screensaver";
     private static final String KEY_WIFI_DISPLAY = "wifi_display";
     private static final String KEY_SCREEN_OFF_ANIMATION = "screen_off_animation";
+    private static final String KEY_ALLOW_ALL_ROTATIONS = "allow_all_rotations";
 
     private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
 
@@ -86,6 +87,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             updateAccelerometerRotationCheckbox();
         }
     };
+
+    private CheckBoxPreference mAllowAllRotations;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -138,6 +141,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         } else {
             getPreferenceScreen().removePreference(mScreenOffAnimation);
         }
+
+        mAllowAllRotations = (CheckBoxPreference) findPreference(KEY_ALLOW_ALL_ROTATIONS);
+        mAllowAllRotations.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.ALLOW_ALL_ROTATIONS, 0) == 1);
     }
 
     private void updateTimeoutPreferenceDescription(long currentTimeout) {
@@ -330,6 +337,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         } else if (preference == mScreenOffAnimation) {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_ANIMATION,
                     mScreenOffAnimation.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mAllowAllRotations) {
+            Settings.System.putInt(getContentResolver(), Settings.System.ALLOW_ALL_ROTATIONS,
+                    mAllowAllRotations.isChecked() ? 1 : 0); 
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
