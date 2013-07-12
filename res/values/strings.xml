@@ -4660,8 +4660,6 @@
     <string name="navigation_bar_height_32">32dp</string>
     <string name="navigation_bar_height_28">28dp</string>
     <string name="navigation_bar_height_24">24dp</string>
-    <string name="halo_arrow_right">→</string>
-    <string name="halo_arrow_down">↓</string>
 
     <!-- Navigation Bar Color -->
     <string name="navigation_button_color_title">Button color overlay</string>
@@ -4717,8 +4715,8 @@
 
     <string name="dialog_color_picker">Color picker</string>
     <string name="press_color_to_apply">Tap on color to apply</string>
-    <string name="arrow_right" translatable="false">\u2192</string>
-    <string name="arrow_down" translatable="false">\u2193</string>
+    <string name="batterybar_arrow_right" translatable="false">\u2192</string>
+    <string name="batterybar_arrow_down" translatable="false">\u2193</string>
     <string name="hex_hint" translatable="false">#FF000000</string>
     <string name="ics_color" translatable="false">!!!</string>
     <string name="set">Set</string>
@@ -4783,6 +4781,8 @@
     <string name="halo_bubble_text_color_title">Speech bubble text color</string> 
     <string name="halo_effect_color_title">Effect color</string>
     <string name="halo_effect_color_summary">Requires a systemui restart</string>
+    <string name="halo_arrow_right">→</string>
+    <string name="halo_arrow_down">↓</string>
 
     <!-- Label for are-notifications-enabled checkbox in app details [CHAR LIMIT=20] -->
     <string name="app_halo_label_black">Blacklist HALO notifications</string>

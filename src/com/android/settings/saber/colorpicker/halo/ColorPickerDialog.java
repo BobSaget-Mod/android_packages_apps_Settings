@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package net.margaritov.preference.colorpicker;
+package com.android.settings.saber.colorpicker.halo;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -78,7 +78,7 @@ public class ColorPickerDialog
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
-        View layout = inflater.inflate(R.layout.halo_dialog_color_picker, null);
+        View layout = inflater.inflate(R.layout.dialog_halo_color_picker, null);
 
         setContentView(layout);
 

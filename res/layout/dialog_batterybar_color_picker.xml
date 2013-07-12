@@ -23,7 +23,7 @@
     android:paddingRight="5dp"
     android:orientation="vertical">
 
-    <com.android.settings.saber.colorpicker.ColorPickerView
+    <com.android.settings.saber.colorpicker.batterybar.ColorPickerView
         android:id="@+id/color_picker_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:layout_below="@id/color_picker_view"
         android:layout_marginBottom="10dp">
 
-        <com.android.settings.saber.colorpicker.ColorPickerPanelView
+        <com.android.settings.saber.colorpicker.batterybar.ColorPickerPanelView
             android:id="@+id/old_color_panel"
             android:layout_width="0px"
             android:layout_height="fill_parent"
@@ -56,13 +56,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="@string/arrow_right"
+            android:text="@string/batterybar_arrow_right"
             android:textSize="20sp"
             android:gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
 
-        <com.android.settings.saber.colorpicker.ColorPickerPanelView
+        <com.android.settings.saber.colorpicker.batterybar.ColorPickerPanelView
             android:id="@+id/new_color_panel"
             android:layout_width="0px"
             android:layout_height="wrap_content"

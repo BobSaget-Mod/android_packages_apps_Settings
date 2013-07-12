@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.saber.colorpicker;
+package com.android.settings.saber.colorpicker.batterybar;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;

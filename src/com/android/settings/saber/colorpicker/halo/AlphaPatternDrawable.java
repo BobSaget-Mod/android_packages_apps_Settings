@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.margaritov.preference.colorpicker;
+package com.android.settings.saber.colorpicker.halo;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;

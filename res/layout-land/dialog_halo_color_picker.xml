@@ -23,7 +23,7 @@
     android:paddingRight="5dp"
     android:orientation="horizontal">
 
-    <net.margaritov.preference.colorpicker.ColorPickerView
+    <com.android.settings.saber.colorpicker.halo.ColorPickerView
         android:id="@+id/color_picker_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,14 +74,14 @@
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
-            <net.margaritov.preference.colorpicker.ColorPickerPanelView
+            <com.android.settings.saber.colorpicker.halo.ColorPickerPanelView
                 android:id="@+id/white_panel"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="6dp"
                 android:layout_weight="0.5" />
 
-            <net.margaritov.preference.colorpicker.ColorPickerPanelView
+            <com.android.settings.saber.colorpicker.halo.ColorPickerPanelView
                 android:id="@+id/red_panel"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
@@ -95,14 +95,14 @@
             android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
-            <net.margaritov.preference.colorpicker.ColorPickerPanelView
+            <com.android.settings.saber.colorpicker.halo.ColorPickerPanelView
                 android:id="@+id/black_panel"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="6dp"
                 android:layout_weight="0.5" />
 
-            <net.margaritov.preference.colorpicker.ColorPickerPanelView
+            <com.android.settings.saber.colorpicker.halo.ColorPickerPanelView
                 android:id="@+id/green_panel"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
@@ -116,14 +116,14 @@
             android:layout_marginBottom="80dp"
             android:orientation="horizontal">
 
-            <net.margaritov.preference.colorpicker.ColorPickerPanelView
+            <com.android.settings.saber.colorpicker.halo.ColorPickerPanelView
                 android:id="@+id/cyan_panel"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="6dp"
                 android:layout_weight="0.5" />
 
-            <net.margaritov.preference.colorpicker.ColorPickerPanelView
+            <com.android.settings.saber.colorpicker.halo.ColorPickerPanelView
                 android:id="@+id/yellow_panel"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
         />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPanelView
+        <com.android.settings.saber.colorpicker.halo.ColorPickerPanelView
             android:id="@+id/old_color_panel"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -152,14 +152,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/arrow_down"
+            android:text="@string/halo_arrow_down"
             android:textSize="20sp"
             android:gravity="center"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="8dp"
         />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPanelView
+        <com.android.settings.saber.colorpicker.halo.ColorPickerPanelView
             android:id="@+id/new_color_panel"
             android:layout_width="wrap_content"
             android:layout_height="40dp"

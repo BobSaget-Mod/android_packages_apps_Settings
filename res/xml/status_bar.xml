@@ -63,7 +63,7 @@
                 android:title="@string/battery_bar_animate_title"
                 android:summary="@string/battery_bar_animate_summary" />
 
-            <com.android.settings.saber.colorpicker.ColorPickerPreference
+            <com.android.settings.saber.colorpicker.batterybar.ColorPickerPreference
                 android:key="battery_bar_color"
                 android:title="@string/battery_bar_color"
                 android:defaultValue="#33B5E5" />
