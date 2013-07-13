@@ -94,7 +94,6 @@
             android:key="halo_colors"
             android:title="@string/halo_colors_title"
             android:summary="@string/halo_colors_summary"
-            android:dependency="halo_enabled"
             android:defaultValue="false" />
 
         <com.android.settings.saber.colorpicker.halo.ColorPickerPreference
