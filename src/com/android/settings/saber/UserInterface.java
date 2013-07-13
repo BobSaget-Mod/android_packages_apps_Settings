@@ -46,7 +46,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private static final String KEY_CHARGING_LED_ENABLED = "charging_led_enabled";
     private static final String KEY_LOW_BATTERY_LED_PULSE_ENABLED = "low_battery_led_pulse_enabled";
     private static final String USER_INTERFACE_CATEGORY_HALO = "user_interface_category_halo";
-    private static final String KEY_HALO_ENABLED = "halo_enabled";
     private static final String KEY_HALO_STATE = "halo_state";
     private static final String KEY_HALO_HIDE = "halo_hide";
     private static final String KEY_HALO_REVERSED = "halo_reversed";
@@ -64,7 +63,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private CheckBoxPreference mChargingLedEnabled;
     private CheckBoxPreference mLowBatteryLedPulseEnabled;
     private PreferenceCategory mUserInterfaceHalo;
-    private CheckBoxPreference mHaloEnabled;
     private ListPreference mHaloState;
     private CheckBoxPreference mHaloHide;
     private CheckBoxPreference mHaloReversed;
@@ -107,8 +105,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
         mNotificationManager = INotificationManager.Stub.asInterface(
                 ServiceManager.getService(Context.NOTIFICATION_SERVICE));
 
-        mHaloEnabled = (CheckBoxPreference) findPreference(KEY_HALO_ENABLED);
-
         mHaloState = (ListPreference) findPreference(KEY_HALO_STATE);
 
         mHaloHide = (CheckBoxPreference) findPreference(KEY_HALO_HIDE);
@@ -137,7 +133,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
         } else {
             // NON USER_OWNER is logged in
             // remove non multi-user compatible settings
-            prefSet.removePreference(findPreference(KEY_HALO_ENABLED));
             prefSet.removePreference(findPreference(KEY_HALO_STATE));
             prefSet.removePreference(findPreference(KEY_HALO_HIDE));
             prefSet.removePreference(findPreference(KEY_HALO_REVERSED));
@@ -189,10 +184,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
                     Settings.System.LOW_BATTERY_LED_PULSE_ENABLED, 1) == 1);
             }
         }
-
- 
-        mHaloEnabled.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.HALO_ENABLED, 0) == 1);
 
         mHaloState.setValue(String.valueOf((isHaloPolicyBlack() ? "1" : "0")));
         mHaloState.setOnPreferenceChangeListener(this);
@@ -253,11 +244,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOW_BATTERY_LED_PULSE_ENABLED,
                     mLowBatteryLedPulseEnabled.isChecked() ? 1 : 0);
-            return true;
-        } else if  (preference == mHaloEnabled) {
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.HALO_ENABLED,
-                    mHaloEnabled.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mHaloHide) {
             Settings.System.putInt(getActivity().getContentResolver(),
