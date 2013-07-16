@@ -4762,6 +4762,8 @@
 
     <!-- HALO -->
     <string name="halo_category_title">HALO</string>
+    <string name="halo_enabled_title">HALO switch</string>
+    <string name="halo_enabled_summary">Disable HALO and hide the status bar icon</string>
     <string name="halo_hide_title">Hide HALO after activity</string>
     <string name="halo_hide_summary">HALO will appear for incoming tasks and scroll out of sight after a while</string>
     <string name="halo_reversed_title">Reverse HALO</string>
