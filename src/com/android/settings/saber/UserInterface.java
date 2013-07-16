@@ -50,6 +50,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private static final String KEY_HALO_STATE = "halo_state";
     private static final String KEY_HALO_HIDE = "halo_hide";
     private static final String KEY_HALO_REVERSED = "halo_reversed";
+    private static final String KEY_HALO_SIZE = "halo_size";
     private static final String KEY_HALO_PAUSE = "halo_pause";
     private static final String KEY_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
     private static final String KEY_HALO_CIRCLE_COLOR = "halo_circle_color";
@@ -66,6 +67,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private PreferenceCategory mUserInterfaceHalo;
     private CheckBoxPreference mHaloEnabled;
     private ListPreference mHaloState;
+    private ListPreference mHaloSize;
     private CheckBoxPreference mHaloHide;
     private CheckBoxPreference mHaloReversed;
     private CheckBoxPreference mHaloPause;
@@ -130,6 +132,15 @@ public class UserInterface extends SettingsPreferenceFragment implements
 
         mHaloBubbleTextColor = (ColorPickerPreference) findPreference(KEY_HALO_BUBBLE_TEXT_COLOR);
 
+        mHaloSize = (ListPreference) prefSet.findPreference(KEY_HALO_SIZE);
+        try {
+            float haloSize = Settings.System.getFloat(mContext.getContentResolver(),
+                    Settings.System.HALO_SIZE, 1.0f);
+            mHaloSize.setValue(String.valueOf(haloSize));  
+        } catch(Exception ex) {
+            // So what
+        }
+
         // USER_OWNER is logged in
         mPrimaryUser = UserHandle.myUserId() == UserHandle.USER_OWNER;
         if (mPrimaryUser) {
@@ -146,6 +157,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
             prefSet.removePreference(findPreference(KEY_HALO_BUBBLE_COLOR));
             prefSet.removePreference(findPreference(KEY_HALO_BUBBLE_TEXT_COLOR));
             prefSet.removePreference(findPreference(KEY_HALO_EFFECT_COLOR));
+            prefSet.removePreference(findPreference(HALO_SIZE));
             prefSet.removePreference((PreferenceCategory) findPreference(USER_INTERFACE_CATEGORY_HALO));
         }
 
@@ -213,6 +225,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
         mHaloCircleColor.setOnPreferenceChangeListener(this);
         mHaloBubbleColor.setOnPreferenceChangeListener(this);
         mHaloBubbleTextColor.setOnPreferenceChangeListener(this);
+        mHaloSize.setOnPreferenceChangeListener(this);
     }
 
     private void updateDualPanePrefs(int value) {
@@ -339,6 +352,11 @@ public class UserInterface extends SettingsPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_BUBBLE_TEXT_COLOR, intHex);
+            return true;
+        } else if (preference == mHaloSize) {
+            float haloSize = Float.valueOf((String) newValue);
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.HALO_SIZE, haloSize);
             return true;
         }
 
