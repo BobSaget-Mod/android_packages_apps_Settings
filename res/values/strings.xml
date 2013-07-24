@@ -2332,9 +2332,9 @@
 
     <!-- About --> <skip />
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
-    <string name="about_settings" product="tablet">About nexus</string>
+    <string name="about_settings" product="tablet">About tablet</string>
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
-    <string name="about_settings" product="default">About nexus</string>
+    <string name="about_settings" product="default">About phone</string>
     <!-- Main settings screen, setting summary for the user to go into the About phone screen-->
     <string name="about_settings_summary">View legal info, status, software version</string>
     <!-- About phone settings screen, setting option name to go to dialog that shows legal info -->
@@ -4415,8 +4415,8 @@
     <string name="profile_reset_title">Reset</string>
 
     <!-- System Interface settings  -->
-    <string name="system_settings_title">System Mods</string>
-    <string name="system_interface_title">System Mods</string>
+    <string name="system_settings_title">System mods</string>
+    <string name="system_interface_title">System mods</string>
 
     <!-- Sound settings screen, volumes -->
     <string name="link_volume_ringtones">Link ringtone &amp; notifications volumes</string>
